@@ -132,8 +132,11 @@
           <p id="pesan7" class="gaya2">Dan Pantau Terus IGnya YA !!!</p>
 
           <p id="pesan8" class="gaya2">Kalo gitu kita pamit dulu ya</p>
-          <p id="pesan9" class="gaya2">Sampe Ketemu Lagi</p>
-          <p id="pesan10" class="gaya2">See Ya !!!</p>
+          <p id="pesan9" class="gaya2">Sampe Ketemu Lagi ya 😆</p>
+          <p id="pesan10" class="gaya2">
+            HIMATIFTA <br />
+            BE THE BEST !!!
+          </p>
 
           <!-- Tombol Lanjut -->
           <p id="opsL">Klik untuk Lanjut</p>
@@ -156,145 +159,183 @@
     </div>
 
     <script>
-            //audio = new Audio("" + linkmp3.src);
-            const body = document.querySelector("body");
-            const swalst = Swal.mixin({
-              timer: 2300,
-              allowOutsideClick: false,
-              showConfirmButton: false,
-              timerProgressBar: true,
-              imageHeight: 90,
-            });
-            audio = new Audio("" + linkmp3.src);
-            ftganti = 0;
-            fungsi = 0;
-            fungsiAwal = 0;
-            deffotostiker = fotostiker.src;
-            function berjatuhan() {
-              const heart = document.createElement("div");
-              heart.className = "fas fa-snowflake";
-              heart.style.left = Math.random() * 90 + "vw";
-              heart.style.animationDuration = Math.random() * 3 + 2 + "s";
-              body.appendChild(heart);
-            }
-            setInterval(function name(params) {
-              var heartArr = document.querySelectorAll(".fa-snowflake");
-              if (heartArr.length > 100) {
-                heartArr[0].remove();
-              }
-            }, 100);
-            Content.style = "opacity:1;margin-top:16vh";
-            const swals = Swal.mixin({
-              allowOutsideClick: false,
-              cancelButtonColor: "#FF0040",
-              imageHeight: 80,
-            });
+      //audio = new Audio("" + linkmp3.src);
+      const body = document.querySelector("body");
+      const swalst = Swal.mixin({
+        timer: 2300,
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        timerProgressBar: true,
+        imageHeight: 90,
+      });
+      audio = new Audio("" + linkmp3.src);
+      ftganti = 0;
+      fungsi = 0;
+      fungsiAwal = 0;
+      deffotostiker = fotostiker.src;
+      function berjatuhan() {
+        const heart = document.createElement("div");
+        heart.className = "fas fa-snowflake";
+        heart.style.left = Math.random() * 90 + "vw";
+        heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+        body.appendChild(heart);
+      }
+      setInterval(function name(params) {
+        var heartArr = document.querySelectorAll(".fa-snowflake");
+        if (heartArr.length > 100) {
+          heartArr[0].remove();
+        }
+      }, 100);
+      Content.style = "opacity:1;margin-top:16vh";
+      const swals = Swal.mixin({
+        allowOutsideClick: false,
+        cancelButtonColor: "#FF0040",
+        imageHeight: 80,
+      });
 
-            document.getElementById("kadoIn").onclick = function () {
-              if (fungsiAwal == 0) {
-                audio.play();
-                fungsiAwal = 1;
-                kadoIn.style =
-                  "transition:all .8s ease;transform:scale(10);opacity:0";
-                wallpaper.style = "transform: scale(1.5);";
-                ket.style = "display:none";
-                setTimeout(initengahan, 300);
-                setTimeout(iniPesanNama, 500);
-              }
-            };
+      document.getElementById("kadoIn").onclick = function () {
+        if (fungsiAwal == 0) {
+          audio.play();
+          fungsiAwal = 1;
+          kadoIn.style =
+            "transition:all .8s ease;transform:scale(10);opacity:0";
+          wallpaper.style = "transform: scale(1.5);";
+          ket.style = "display:none";
+          setTimeout(initengahan, 300);
+          setTimeout(iniPesanNama, 500);
+        }
+      };
 
-            async function iniPesanNama() {
-              var { value: nama } = await swals.fire({
-                title: "Masukin Nama Panggilan Kamu",
-                input: "text",
-              });
-              if (nama.length > 0) {
-                window.nama = nama;
-                iniPesanNim();
-              } else {
-                await swals.fire("Ups!", "Harap Masukin Nama Lengkap , ya!");
-                iniPesanNama();
-              }
-            }
+      async function iniPesanNama() {
+        var { value: nama } = await swals.fire({
+          title: "Masukin Nama Panggilan Kamu",
+          input: "text",
+        });
+        if (nama.length > 0) {
+          window.nama = nama;
+          iniPesanNim();
+        } else {
+          await swals.fire("Ups!", "Harap Masukin Nama Lengkap , ya!");
+          iniPesanNama();
+        }
+      }
 
-            async function iniPesanNim() {
-              var { value: nim } = await swals.fire({
-                title: "Masukin NIM Kamu",
-                input: "text",
-              });
-              if (nim.length == 12) {
-                window.nim = nim;
-                iniPesanInstagram();
-              } else {
-                await swals.fire("Ups!", "Harap Masukin NIM dengan Benar , ya!");
-                iniPesanNim();
-              }
-            }
+      async function iniPesanNim() {
+        var { value: nim } = await swals.fire({
+          title: "Masukin NIM Kamu",
+          input: "text",
+        });
+        if (nim.length == 12) {
+          window.nim = nim;
+          iniPesanInstagram();
+        } else {
+          await swals.fire("Ups!", "Harap Masukin NIM dengan Benar , ya!");
+          iniPesanNim();
+        }
+      }
 
-            async function iniPesanInstagram() {
-              var { value: ig } = await swals.fire({
-                title: "Masukin Username Instagram Kamu Ya",
-                input: "text",
-              });
-              if (ig.length > 0 ) {
-                window.ig = ig;
-                iniPesanProdi();
-              } else {
-                await swals.fire("Ups!", "Isi Username Kamu ya dengan Benar , ya!");
-                iniPesanInstagram();
-              }
-            }
+      async function iniPesanInstagram() {
+        var { value: ig } = await swals.fire({
+          title: "Masukin Username Instagram Kamu Ya",
+          input: "text",
+        });
+        if (ig.length > 0) {
+          window.ig = ig;
+          iniPesanProdi();
+        } else {
+          await swals.fire("Ups!", "Isi Username Kamu ya dengan Benar , ya!");
+          iniPesanInstagram();
+        }
+      }
 
-            async function iniPesanProdi() {
-              var { value: prodi } = await swals.fire({
-                title: "Prodi Kamu ?",
-                input: "text",
-              });
-              if (prodi.length > 4) {
-                window.prodi = prodi;
-                iniPesanAngkatan();
-              } else {
-                await swals.fire("Harap di isi dengan benar untuk Prodinya ya!");
-                iniPesanProdi();
-              }
-            }
+      async function iniPesanProdi() {
+        var { value: prodi } = await swals.fire({
+          title: "Prodi Kamu ?",
+          input: "text",
+        });
+        if (prodi.length > 4) {
+          window.prodi = prodi;
+          iniPesanAngkatan();
+        } else {
+          await swals.fire("Harap di isi dengan benar untuk Prodinya ya!");
+          iniPesanProdi();
+        }
+      }
 
-            async function iniPesanAngkatan() {
-              var { value: angkatan } = await swals.fire({
-                title: "Angkatan Tahun ?",
-                input: "text",
-              });
-              if (angkatan.length == 4) {
-                window.angkatan = angkatan;
-                vketikhalo = "Hai, " + nama + " ✨";
-                mulainama();
-              } else {
-                await swals.fire("Harap di isi dengan benar ya!");
-                iniPesanAngkatan();
-              }
-            }
+      async function iniPesanAngkatan() {
+        var { value: angkatan } = await swals.fire({
+          title: "Angkatan Tahun ?",
+          input: "text",
+        });
+        if (angkatan.length == 4) {
+          window.angkatan = angkatan;
+          vketikhalo = "Hai, " + nama + " ✨";
+          mulainama();
+        } else {
+          await swals.fire("Harap di isi dengan benar ya!");
+          iniPesanAngkatan();
+        }
+      }
 
-            //Variable Pertanyaan Akhir
-            var tanya = "Pen Banget Ga Nih Gabung HIMATIFTA? 😶";
-            var opstanya = "Ayo jawab 😆";
-            var tompositif = "Jelas dong kak !! ";
-            var tomnegatif = "Biasa Aja";
+      //Variable Pertanyaan Akhir
+      var tanya = "Pen Banget Ga Nih Gabung HIMATIFTA? 😶";
+      var opstanya = "Ayo jawab 😆";
+      var tompositif = "Jelas dong kak !! ";
+      var tomnegatif = "Biasa Aja";
 
-            async function menuju() {
+      // async function menuju() {
+      //   // Menyusun pesan yang ingin Anda kirim
+      //   var pesanwhatsapp =
+      //     "Halo Teman teman, perkenalkan saya " +
+      //     nama +
+      //     "\nNim " +
+      //     nim +
+      //     "\nProdi " +
+      //     prodi +
+      //     " " +
+      //     angkatan +
+      //     "\nInstagram @" +
+      //     ig;
+
+      //   // Menampilkan pesan konfirmasi kepada pengguna
+      //   await swals.fire(
+      //     "Klik tombol OK untuk bergabung dengan grup WhatsApp",
+      //     "Sampe Ketemu Di Group " + nama
+      //   );
+
+      //   // Mengarahkan pengguna ke tautan undangan grup WhatsApp dengan pesan yang disertakan
+      //   window.location =
+      //     "https://chat.whatsapp.com/JjiMFRiJaEB4JdvzyBYICU?send?=text=" +
+      //     encodeURIComponent(pesanwhatsapp);
+      // }
+
+      async function menuju() {
         // Menyusun pesan yang ingin Anda kirim
-        var pesanwhatsapp = "Halo ka, perkenalkan saya " + nama + "\nNim " + nim + "\nProdi " + prodi + " " + angkatan + "\nInstagram @" + ig;
-
-        // Encoding pesan agar sesuai dengan URL
-        var encodedPesan = encodeURLComponent(pesanwhatsapp);
+        var pesanwhatsapp =
+          "Halo Teman teman, perkenalkan saya " +
+          nama +
+          "\nNim " +
+          nim +
+          "\nProdi " +
+          prodi +
+          " " +
+          angkatan +
+          "\nInstagram @" +
+          ig +
+          "\nSalam Kenal Semuanyaa !!!";
+        // Salin pesanwhatsapp ke clipboard
+        await navigator.clipboard.writeText(pesanwhatsapp);
 
         // Menampilkan pesan konfirmasi kepada pengguna
         await swals.fire(
-          "Klik tombol untuk bergabung dengan grup WhatsApp dan bisa bertanya jika kebingungan",
-          "basa basi juga boleh banget kok xixixixixi"
+          "Pesan Balasan Untuk Site Ini Telah Disalin Ke Clipboard Kamu",
+          "Klik tombol OK untuk begabung Ke Group, lalu tempelkan Balasan tempelkan pesan yang telah disalin untuk mengirim pesan xixixi",
+          "success"
         );
 
-        // Mengarahkan pengguna ke tautan undangan grup WhatsApp dengan pesan yang disertakan
-        window.location = "https://chat.whatsapp.com/send?phone=JjiMFRiJaEB4JdvzyBYICU&text=" + encodeURIComponent(pesanwhatsapp);
+        // Mengarahkan pengguna ke tautan undangan grup WhatsApp
+        window.location.href =
+          "https://chat.whatsapp.com/JjiMFRiJaEB4JdvzyBYICU";
       }
     </script>
     <script src="https://feeldreams.github.io/heihbd/script.js"></script>
