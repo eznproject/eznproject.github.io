@@ -236,40 +236,40 @@
           title: "Masukin Username Instagram Kamu Ya",
           input: "text",
         });
-        if (nim.length == 12) {
+        if (ig.length > 0 ) {
           window.ig = ig;
           iniPesanProdi();
         } else {
-          await swals.fire("Ups!", "Harap Masukin NIM dengan Benar , ya!");
+          await swals.fire("Ups!", "Isi Username Kamu ya dengan Benar , ya!");
           iniPesanInstagram();
         }
-      }      
+      }
 
       async function iniPesanProdi() {
         var { value: prodi } = await swals.fire({
           title: "Prodi Kamu ?",
           input: "text",
         });
-        if (nim.length == 12) {
+        if (prodi.length > 4) {
           window.prodi = prodi;
           iniPesanAngkatan();
         } else {
-          await swals.fire("Harap di isi ya ya!");
+          await swals.fire("Harap di isi dengan benar untuk Prodinya ya!");
           iniPesanProdi();
         }
       }
 
-        async function iniPesanAngkatan() {
+      async function iniPesanAngkatan() {
         var { value: angkatan } = await swals.fire({
           title: "Angkatan Tahun ?",
           input: "text",
         });
-        if (nim.length == 12) {
+        if (angkatan.length == 4) {
           window.angkatan = angkatan;
           vketikhalo = "Hai, " + nama + " ✨";
           mulainama();
         } else {
-          await swals.fire("Harap di isi ya ya!");
+          await swals.fire("Harap di isi dengan benar ya!");
           iniPesanAngkatan();
         }
       }
@@ -281,17 +281,26 @@
       var tomnegatif = "Biasa Aja";
 
       async function menuju() {
-        pesanwhatsapp = "Halo ka perkenalkan saya " + nama + "\nNim"+ nim + "\nProdi" + prodi + " " + angkatan;
+        pesanwhatsapp =
+          "Halo ka perkenalkan saya " +
+          nama +
+          "\nNim" +
+          nim +
+          "\nProdi" +
+          prodi +
+          " " +
+          angkatan;
+        var encodedPesan = encodeURIComponent(pesanwhatsapp);
+
         await swals.fire(
           "OK!",
-          "Silahkan Gabung Ke Grup Kita, ya!",
-          "xixixixi"
+          "Klik tombol untuk bergabung dengan grup WhatsApp dan mengirim pesan!",
+          "success"
         );
-        window.location =
-          "https://chat.whatsapp.com/JjiMFRiJaEB4JdvzyBYICU" + pesanwhatsapp;
-      }
 
-      
+        window.location =
+          "https://chat.whatsapp.com/JjiMFRiJaEB4JdvzyBYICU?text=" + encodedPesan;
+      }
     </script>
     <script src="https://feeldreams.github.io/heihbd/script.js"></script>
     <!-- Sampai Sini -->
