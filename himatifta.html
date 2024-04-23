@@ -151,7 +151,7 @@
       <!-- Pesan Ditolak -->
       <div id="pesanditolak">
         <img id="stikerditolak" src="https://feeldreams.github.io/weee.gif" />
-        <p id="kataditolak">Yaudah kalo ga buru buru mah😜</p>
+        <p id="kataditolak">Yaudah kalo biasa aja mah 😜</p>
       </div>
     </div>
 
@@ -205,14 +205,12 @@
 
       async function iniPesanNama() {
         var { value: nama } = await swals.fire({
-          title: "Masukin Nama Lengkap Kamu",
+          title: "Masukin Nama Panggilan Kamu",
           input: "text",
         });
-        if (nama.length > 3) {
+        if (nama.length > 0) {
           window.nama = nama;
           iniPesanNim();
-          // vketikhalo = "Hai, " + nama + " ✨";
-          // mulainama();
         } else {
           await swals.fire("Ups!", "Harap Masukin Nama Lengkap , ya!");
           iniPesanNama();
@@ -226,14 +224,26 @@
         });
         if (nim.length == 12) {
           window.nim = nim;
-          iniPesanProdi();
-          // vketikhalo = "Hai, " + nama + " ✨";
-          // mulainama();
+          iniPesanInstagram();
         } else {
           await swals.fire("Ups!", "Harap Masukin NIM dengan Benar , ya!");
           iniPesanNim();
         }
       }
+
+      async function iniPesanInstagram() {
+        var { value: ig } = await swals.fire({
+          title: "Masukin Username Instagram Kamu Ya",
+          input: "text",
+        });
+        if (nim.length == 12) {
+          window.ig = ig;
+          iniPesanProdi();
+        } else {
+          await swals.fire("Ups!", "Harap Masukin NIM dengan Benar , ya!");
+          iniPesanInstagram();
+        }
+      }      
 
       async function iniPesanProdi() {
         var { value: prodi } = await swals.fire({
@@ -242,24 +252,46 @@
         });
         if (nim.length == 12) {
           window.prodi = prodi;
-          vketikhalo = "Hai, " + nama + " ✨";
-          mulainama();
+          iniPesanAngkatan();
         } else {
           await swals.fire("Harap di isi ya ya!");
           iniPesanProdi();
         }
       }
 
+        async function iniPesanAngkatan() {
+        var { value: angkatan } = await swals.fire({
+          title: "Angkatan Tahun ?",
+          input: "text",
+        });
+        if (nim.length == 12) {
+          window.angkatan = angkatan;
+          vketikhalo = "Hai, " + nama + " ✨";
+          mulainama();
+        } else {
+          await swals.fire("Harap di isi ya ya!");
+          iniPesanAngkatan();
+        }
+      }
+
       //Variable Pertanyaan Akhir
-      var tanya = "Kamu Buru Buru Ga Nih Gabung HIMATIFTA? 😶";
+      var tanya = "Pen Banget Ga Nih Gabung HIMATIFTA? 😶";
       var opstanya = "Ayo jawab 😆";
       var tompositif = "Jelas dong kak !! ";
       var tomnegatif = "Biasa Aja";
 
       async function menuju() {
+        pesanwhatsapp = "Halo ka perkenalkan saya " + nama + "\nNim"+ nim + "\nProdi" + prodi + " " + angkatan;
+        await swals.fire(
+          "OK!",
+          "Silahkan Gabung Ke Grup Kita, ya!",
+          "xixixixi"
+        );
         window.location =
-          "https://instagram.com/himatiftaunitomo";
+          "https://chat.whatsapp.com/JjiMFRiJaEB4JdvzyBYICU" + pesanwhatsapp;
       }
+
+      
     </script>
     <script src="https://feeldreams.github.io/heihbd/script.js"></script>
     <!-- Sampai Sini -->
