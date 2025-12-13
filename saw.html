@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPK Pemilihan Jurusan Kuliah</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e8f4f8 0%, #f5f7fa 100%);
+            min-height: 100vh;
+            color: #2c3e50;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            color: #1e3a8a;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #2563eb;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 1.1em;
+            margin-bottom: 30px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            transition: transform 0.3s;
+            border: 2px solid #e5e7eb;
+        }
+
+        .feature-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: block;
+            margin: 20px auto;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(30, 58, 138, 0.3);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: border 0.3s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+
+        .question-card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border-left: 5px solid #2563eb;
+        }
+
+        .question-text {
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .likert-scale {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .likert-option {
+            flex: 1;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .likert-option input[type="radio"] {
+            display: none;
+        }
+
+        .likert-option label {
+            display: block;
+            padding: 15px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+
+        .likert-option input[type="radio"]:checked + label {
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+            color: white;
+            border-color: #2563eb;
+            transform: scale(1.05);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #1e3a8a 0%, #2563eb 100%);
+            transition: width 0.3s;
+        }
+
+        .result-card {
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        .percentage {
+            font-size: 3em;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .program-studi {
+            background: white;
+            color: #333;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 15px 0;
+        }
+
+        .program-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .match-badge {
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .chart-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .bar-chart {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .bar-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .bar-label {
+            min-width: 150px;
+            font-weight: 600;
+        }
+
+        .bar {
+            flex: 1;
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #1e3a8a 0%, #2563eb 100%);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            color: white;
+            font-weight: bold;
+            transition: width 1s ease-out;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .likert-scale {
+                flex-direction: column;
+            }
+
+            .likert-option {
+                min-width: 100%;
+            }
+        }
+
+        .info-box {
+            background: #dbeafe;
+            border-left: 4px solid #2563eb;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .skill-tag {
+            display: inline-block;
+            background: #f0f0f0;
+            padding: 8px 15px;
+            border-radius: 20px;
+            margin: 5px;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Landing Page -->
+        <div id="landing" class="card">
+            <h1>🎓 Sistem Pendukung Keputusan Pemilihan Jurusan Kuliah</h1>
+            <p class="subtitle">Temukan jurusan dan program studi yang paling sesuai dengan minat, bakat, dan rencana kariermu!</p>
+            
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">🧠</div>
+                    <h3>Analisis Mendalam</h3>
+                    <p>Menggunakan metode SAW (Simple Additive Weighting)</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📊</div>
+                    <h3>Hasil Terukur</h3>
+                    <p>Persentase kecocokan berbasis data ilmiah</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">💼</div>
+                    <h3>Prospek Karier</h3>
+                    <p>Rekomendasi skill & jalur karier</p>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📱</div>
+                    <h3>Hasil Tersimpan</h3>
+                    <p>Simpan & cetak hasil rekomendasimu</p>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <strong>✨ Keunggulan Aplikasi:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>Bukan sekadar kuis, tapi sistem rekomendasi berbasis metode ilmiah</li>
+                    <li>Mempertimbangkan minat, kemampuan akademik, gaya belajar, dan preferensi karier</li>
+                    <li>Memberikan alasan detail mengapa jurusan tersebut cocok untukmu</li>
+                </ul>
+            </div>
+
+            <button class="btn" onclick="showProfile()">Mulai Sekarang →</button>
+        </div>
+
+        <!-- Profile Form -->
+        <div id="profileForm" class="card hidden">
+            <h2>📝 Profil Diri</h2>
+            <p style="color: #666; margin-bottom: 30px;">Isi data dirimu untuk personalisasi hasil rekomendasi</p>
+
+            <div class="form-group">
+                <label>Nama (Opsional)</label>
+                <input type="text" id="nama" placeholder="Masukkan namamu">
+            </div>
+
+            <div class="form-group">
+                <label>Asal Sekolah</label>
+                <input type="text" id="sekolah" placeholder="Contoh: SMA Negeri 1 Surabaya" required>
+            </div>
+
+            <div class="form-group">
+                <label>Jurusan Sekolah</label>
+                <select id="jurusanSekolah" required>
+                    <option value="">Pilih jurusan</option>
+                    <option value="IPA">IPA</option>
+                    <option value="IPS">IPS</option>
+                    <option value="Bahasa">Bahasa</option>
+                    <option value="SMK-Teknik">SMK - Teknik</option>
+                    <option value="SMK-Bisnis">SMK - Bisnis & Manajemen</option>
+                    <option value="SMK-Lainnya">SMK - Lainnya</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Nilai Rata-Rata (Opsional)</label>
+                <input type="number" id="nilaiRata" placeholder="Contoh: 85" min="0" max="100" step="0.1">
+            </div>
+
+            <button class="btn" onclick="startTest()">Lanjut ke Tes →</button>
+        </div>
+
+        <!-- Test Section -->
+        <div id="testSection" class="card hidden">
+            <h2>🧪 Tes Minat & Bakat</h2>
+            <p style="color: #666; margin-bottom: 20px;">Jawab setiap pernyataan dengan jujur sesuai kondisi dirimu</p>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar" style="width: 0%"></div>
+            </div>
+            <p style="text-align: center; color: #666; margin-bottom: 30px;">
+                Pertanyaan <span id="currentQ">1</span> dari <span id="totalQ">20</span>
+            </p>
+
+            <div id="questionsContainer"></div>
+
+            <div class="btn-group">
+                <button class="btn btn-secondary" id="prevBtn" onclick="prevQuestion()" style="display: none;">← Sebelumnya</button>
+                <button class="btn" id="nextBtn" onclick="nextQuestion()">Selanjutnya →</button>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div id="resultsSection" class="card hidden">
+            <h2>🎉 Hasil Rekomendasi Jurusan</h2>
+            <div id="resultsContent"></div>
+            
+            <div class="btn-group">
+                <button class="btn" onclick="saveResults()">💾 Simpan Hasil</button>
+                <button class="btn btn-secondary" onclick="printPDF()">📄 Cetak PDF</button>
+                <button class="btn" onclick="resetTest()" style="background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);">🔄 Tes Ulang</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data Program Studi dengan kriteria lengkap
+        const programStudi = [
+            {
+                nama: "Teknik Informatika",
+                jurusan: "Saintek",
+                bobot: { teknologi: 0.3, sains: 0.25, akademik: 0.2, logika: 0.15, kreativitas: 0.1 },
+                deskripsi: "Mempelajari pengembangan software, algoritma, kecerdasan buatan, dan sistem komputer",
+                prospek: ["Software Engineer", "Data Scientist", "AI Engineer", "Full Stack Developer", "Cloud Architect"],
+                skills: ["Programming", "Problem Solving", "Database", "Algoritma", "Cloud Computing"]
+            },
+            {
+                nama: "Sistem Informasi",
+                jurusan: "Saintek",
+                bobot: { teknologi: 0.25, bisnis: 0.25, akademik: 0.2, logika: 0.15, komunikasi: 0.15 },
+                deskripsi: "Menggabungkan teknologi informasi dengan manajemen bisnis untuk solusi digital",
+                prospek: ["Business Analyst", "IT Consultant", "Project Manager", "System Analyst", "Product Manager"],
+                skills: ["Manajemen Proyek", "Analisis Bisnis", "Database", "UI/UX", "Leadership"]
+            },
+            {
+                nama: "Teknik Elektro",
+                jurusan: "Saintek",
+                bobot: { teknologi: 0.3, sains: 0.3, akademik: 0.2, logika: 0.15, detail: 0.05 },
+                deskripsi: "Mempelajari sistem kelistrikan, elektronika, telekomunikasi, dan kontrol otomatis",
+                prospek: ["Electrical Engineer", "Automation Engineer", "Robotics Engineer", "IoT Engineer", "Power System Engineer"],
+                skills: ["Elektronika", "Pemrograman Embedded", "Kontrol Otomatis", "Power System", "IoT"]
+            },
+            {
+                nama: "Kedokteran",
+                jurusan: "Saintek",
+                bobot: { sains: 0.35, akademik: 0.25, sosial: 0.2, detail: 0.1, empati: 0.1 },
+                deskripsi: "Mempelajari ilmu kesehatan, diagnosis penyakit, dan penanganan medis",
+                prospek: ["Dokter Umum", "Dokter Spesialis", "Peneliti Medis", "Dosen Kedokteran", "Medical Officer"],
+                skills: ["Anatomi", "Diagnosis", "Komunikasi Pasien", "Critical Thinking", "Empati"]
+            },
+            {
+                nama: "Manajemen",
+                jurusan: "Soshum",
+                bobot: { bisnis: 0.3, sosial: 0.25, komunikasi: 0.2, kepemimpinan: 0.15, akademik: 0.1 },
+                deskripsi: "Mempelajari pengelolaan organisasi, strategi bisnis, dan kepemimpinan",
+                prospek: ["Manager", "Business Development", "Entrepreneur", "HR Manager", "Marketing Manager"],
+                skills: ["Leadership", "Strategic Planning", "Komunikasi", "Analisis Pasar", "Negotiation"]
+            },
+            {
+                nama: "Akuntansi",
+                jurusan: "Soshum",
+                bobot: { bisnis: 0.3, akademik: 0.25, detail: 0.2, logika: 0.15, teliti: 0.1 },
+                deskripsi: "Mempelajari pencatatan, pelaporan, dan analisis keuangan perusahaan",
+                prospek: ["Akuntan", "Auditor", "Tax Consultant", "Financial Analyst", "Controller"],
+                skills: ["Akuntansi Keuangan", "Perpajakan", "Audit", "Excel", "Financial Analysis"]
+            },
+            {
+                nama: "Ilmu Komunikasi",
+                jurusan: "Soshum",
+                bobot: { komunikasi: 0.3, kreativitas: 0.25, sosial: 0.2, menulis: 0.15, presentasi: 0.1 },
+                deskripsi: "Mempelajari strategi komunikasi, media, public relations, dan jurnalistik",
+                prospek: ["Public Relations", "Content Creator", "Journalist", "Social Media Manager", "Brand Manager"],
+                skills: ["Public Speaking", "Content Writing", "Media Planning", "Digital Marketing", "Storytelling"]
+            },
+            {
+                nama: "Psikologi",
+                jurusan: "Soshum",
+                bobot: { sosial: 0.3, empati: 0.25, akademik: 0.2, komunikasi: 0.15, mendengar: 0.1 },
+                deskripsi: "Mempelajari perilaku manusia, kesehatan mental, dan proses kognitif",
+                prospek: ["Psikolog", "HR Specialist", "Counselor", "Researcher", "Organizational Development"],
+                skills: ["Konseling", "Assessment", "Research", "Empati", "Komunikasi Interpersonal"]
+            },
+            {
+                nama: "Desain Komunikasi Visual",
+                jurusan: "Seni",
+                bobot: { kreativitas: 0.35, seni: 0.3, teknologi: 0.2, detail: 0.1, komunikasi: 0.05 },
+                deskripsi: "Mempelajari desain grafis, branding, ilustrasi, dan komunikasi visual",
+                prospek: ["Graphic Designer", "UI/UX Designer", "Brand Designer", "Illustrator", "Art Director"],
+                skills: ["Adobe Creative Suite", "Typography", "Branding", "UI/UX", "Illustration"]
+            },
+            {
+                nama: "Arsitektur",
+                jurusan: "Saintek",
+                bobot: { kreativitas: 0.3, teknologi: 0.25, seni: 0.2, logika: 0.15, detail: 0.1 },
+                deskripsi: "Mempelajari perancangan bangunan, estetika, struktur, dan perencanaan ruang",
+                prospek: ["Arsitek", "Urban Planner", "Interior Designer", "Konsultan Bangunan", "3D Visualizer"],
+                skills: ["AutoCAD", "3D Modeling", "Structural Design", "Kreativitas", "Project Management"]
+            },
+            {
+                nama: "Hukum",
+                jurusan: "Soshum",
+                bobot: { akademik: 0.3, logika: 0.25, komunikasi: 0.2, menulis: 0.15, hafalan: 0.1 },
+                deskripsi: "Mempelajari sistem hukum, perundang-undangan, dan praktek peradilan",
+                prospek: ["Lawyer", "Legal Consultant", "Notaris", "Hakim", "Corporate Legal"],
+                skills: ["Legal Research", "Argumentasi", "Drafting", "Public Speaking", "Critical Analysis"]
+            },
+            {
+                nama: "Ilmu Ekonomi",
+                jurusan: "Soshum",
+                bobot: { bisnis: 0.3, akademik: 0.25, logika: 0.2, analisis: 0.15, matematika: 0.1 },
+                deskripsi: "Mempelajari teori ekonomi, kebijakan fiskal, pasar, dan pembangunan ekonomi",
+                prospek: ["Ekonom", "Policy Analyst", "Financial Planner", "Market Researcher", "Investment Analyst"],
+                skills: ["Economic Analysis", "Statistics", "Econometrics", "Research", "Data Analysis"]
+            }
+        ];
+
+        // Database pertanyaan dengan kategori dan bobot
+        const questions = [
+            // Kategori Teknologi
+            { text: "Saya tertarik mempelajari cara kerja komputer dan software", kategori: "teknologi", bobot: 5 },
+            { text: "Saya senang mencoba dan mempelajari teknologi baru", kategori: "teknologi", bobot: 5 },
+            { text: "Saya tertarik membuat aplikasi atau website", kategori: "teknologi", bobot: 5 },
+            
+            // Kategori Sains
+            { text: "Saya menyukai pelajaran Fisika, Kimia, atau Biologi", kategori: "sains", bobot: 5 },
+            { text: "Saya senang melakukan eksperimen dan penelitian ilmiah", kategori: "sains", bobot: 5 },
+            
+            // Kategori Sosial
+            { text: "Saya mudah berinteraksi dan bekerja dengan orang lain", kategori: "sosial", bobot: 5 },
+            { text: "Saya senang membantu orang lain menyelesaikan masalah mereka", kategori: "sosial", bobot: 5 },
+            { text: "Saya tertarik dengan isu-isu sosial dan kemanusiaan", kategori: "sosial", bobot: 5 },
+            
+            // Kategori Bisnis
+            { text: "Saya tertarik dengan dunia bisnis dan kewirausahaan", kategori: "bisnis", bobot: 5 },
+            { text: "Saya senang menganalisis peluang pasar dan strategi bisnis", kategori: "bisnis", bobot: 5 },
+            
+            // Kategori Kreativitas & Seni
+            { text: "Saya senang menggambar, mendesain, atau membuat karya seni", kategori: "kreativitas", bobot: 5 },
+            { text: "Saya memiliki imajinasi yang kuat dan suka berpikir kreatif", kategori: "kreativitas", bobot: 5 },
+            
+            // Kategori Akademik
+            { text: "Saya memiliki nilai akademik yang konsisten baik", kategori: "akademik", bobot: 5 },
+            { text: "Saya senang belajar hal-hal yang kompleks dan mendalam", kategori: "akademik", bobot: 5 },
+            
+            // Kategori Logika & Problem Solving
+            { text: "Saya senang memecahkan teka-teki dan masalah logika", kategori: "logika", bobot: 5 },
+            { text: "Saya berpikir secara sistematis dan terstruktur", kategori: "logika", bobot: 5 },
+            
+            // Kategori Komunikasi
+            { text: "Saya percaya diri berbicara di depan umum", kategori: "komunikasi", bobot: 5 },
+            { text: "Saya pandai menyampaikan ide dan gagasan dengan jelas", kategori: "komunikasi", bobot: 5 },
+            
+            // Kategori Detail & Ketelitian
+            { text: "Saya adalah orang yang detail dan teliti dalam bekerja", kategori: "detail", bobot: 5 },
+            
+            // Kategori Empati
+            { text: "Saya mudah memahami perasaan dan emosi orang lain", kategori: "empati", bobot: 5 }
+        ];
+
+        // State Management
+        let currentQuestion = 0;
+        let answers = [];
+        let userData = {};
+
+        function showProfile() {
+            document.getElementById('landing').classList.add('hidden');
+            document.getElementById('profileForm').classList.remove('hidden');
+        }
+
+        function startTest() {
+            const sekolah = document.getElementById('sekolah').value;
+            const jurusanSekolah = document.getElementById('jurusanSekolah').value;
+
+            if (!sekolah || !jurusanSekolah) {
+                alert('Mohon lengkapi data yang wajib diisi!');
+                return;
+            }
+
+            userData = {
+                nama: document.getElementById('nama').value || 'Siswa',
+                sekolah: sekolah,
+                jurusanSekolah: jurusanSekolah,
+                nilaiRata: document.getElementById('nilaiRata').value || 0
+            };
+
+            document.getElementById('profileForm').classList.add('hidden');
+            document.getElementById('testSection').classList.remove('hidden');
+            
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const container = document.getElementById('questionsContainer');
+            const question = questions[currentQuestion];
+            
+            container.innerHTML = `
+                <div class="question-card">
+                    <div class="question-text">${currentQuestion + 1}. ${question.text}</div>
+                    <div class="likert-scale">
+                        <div class="likert-option">
+                            <input type="radio" id="opt1_${currentQuestion}" name="q${currentQuestion}" value="1" ${answers[currentQuestion] === 1 ? 'checked' : ''}>
+                            <label for="opt1_${currentQuestion}">Sangat Tidak Setuju</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="opt2_${currentQuestion}" name="q${currentQuestion}" value="2" ${answers[currentQuestion] === 2 ? 'checked' : ''}>
+                            <label for="opt2_${currentQuestion}">Tidak Setuju</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="opt3_${currentQuestion}" name="q${currentQuestion}" value="3" ${answers[currentQuestion] === 3 ? 'checked' : ''}>
+                            <label for="opt3_${currentQuestion}">Netral</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="opt4_${currentQuestion}" name="q${currentQuestion}" value="4" ${answers[currentQuestion] === 4 ? 'checked' : ''}>
+                            <label for="opt4_${currentQuestion}">Setuju</label>
+                        </div>
+                        <div class="likert-option">
+                            <input type="radio" id="opt5_${currentQuestion}" name="q${currentQuestion}" value="5" ${answers[currentQuestion] === 5 ? 'checked' : ''}>
+                            <label for="opt5_${currentQuestion}">Sangat Setuju</label>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            updateProgress();
+            updateButtons();
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / questions.length) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            document.getElementById('currentQ').textContent = currentQuestion + 1;
+            document.getElementById('totalQ').textContent = questions.length;
+        }
+
+        function updateButtons() {
+            document.getElementById('prevBtn').style.display = currentQuestion > 0 ? 'block' : 'none';
+            document.getElementById('nextBtn').textContent = currentQuestion === questions.length - 1 ? 'Lihat Hasil 🎯' : 'Selanjutnya →';
+        }
+
+        function nextQuestion() {
+            const selected = document.querySelector(`input[name="q${currentQuestion}"]:checked`);
+            
+            if (!selected) {
+                alert('Mohon pilih salah satu jawaban!');
+                return;
+            }
+
+            answers[currentQuestion] = parseInt(selected.value);
+
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                renderQuestion();
+            } else {
+                calculateResults();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                renderQuestion();
+            }
+        }
+
+        // Algoritma SAW (Simple Additive Weighting)
+        function calculateResults() {
+            // Step 1: Hitung skor per kategori dari jawaban user
+            const kategoriScores = {};
+            
+            questions.forEach((q, index) => {
+                if (!kategoriScores[q.kategori]) {
+                    kategoriScores[q.kategori] = { total: 0, count: 0 };
+                }
+                kategoriScores[q.kategori].total += answers[index] * q.bobot;
+                kategoriScores[q.kategori].count++;
+            });
+
+            // Normalisasi skor kategori (0-100)
+            const normalizedScores = {};
+            Object.keys(kategoriScores).forEach(kat => {
+                const maxPossible = kategoriScores[kat].count * 5 * 5; // max jawaban * max bobot
+                normalizedScores[kat] = (kategoriScores[kat].total / maxPossible) * 100;
+            });
+
+            // Step 2: Hitung skor untuk setiap program studi menggunakan SAW
+            const results = programStudi.map(prodi => {
+                let totalScore = 0;
+                let totalWeight = 0;
+
+                // Kalkulasi weighted score berdasarkan bobot prodi
+                Object.keys(prodi.bobot).forEach(kriteria => {
+                    const weight = prodi.bobot[kriteria];
+                    const userScore = normalizedScores[kriteria] || 0;
+                    totalScore += userScore * weight;
+                    totalWeight += weight;
+                });
+
+                // Normalisasi ke persentase kecocokan
+                const matchPercentage = (totalScore / totalWeight);
+
+                return {
+                    ...prodi,
+                    matchPercentage: matchPercentage,
+                    rawScore: totalScore
+                };
+            });
+
+            // Step 3: Sorting berdasarkan match percentage (tertinggi ke terendah)
+            results.sort((a, b) => b.matchPercentage - a.matchPercentage);
+
+            // Step 4: Ambil top 3 rekomendasi
+            const top3 = results.slice(0, 3);
+
+            displayResults(top3, normalizedScores);
+        }
+
+        function displayResults(top3, kategoriScores) {
+            document.getElementById('testSection').classList.add('hidden');
+            document.getElementById('resultsSection').classList.remove('hidden');
+
+            const container = document.getElementById('resultsContent');
+            
+            let html = `
+                <div class="result-card">
+                    <h3 style="text-align: center; margin-bottom: 10px;">Halo, ${userData.nama}! 👋</h3>
+                    <p style="text-align: center;">Dari ${userData.sekolah} - ${userData.jurusanSekolah}</p>
+                    <p style="text-align: center; margin-top: 20px; font-size: 1.1em;">
+                        Berdasarkan analisis mendalam menggunakan metode <strong>Simple Additive Weighting (SAW)</strong>,
+                        berikut adalah rekomendasi jurusan yang paling cocok untukmu:
+                    </p>
+                </div>
+
+                <div class="chart-container">
+                    <h3 style="margin-bottom: 20px; color: #1e3a8a;">📊 Profil Minat & Kemampuanmu</h3>
+                    <div class="bar-chart">
+                        ${Object.keys(kategoriScores).map(kat => `
+                            <div class="bar-item">
+                                <div class="bar-label">${capitalizeFirst(kat)}</div>
+                                <div class="bar">
+                                    <div class="bar-fill" style="width: ${kategoriScores[kat]}%">
+                                        ${kategoriScores[kat].toFixed(1)}%
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+
+                <h3 style="color: #2563eb; margin: 30px 0 20px 0;">🎯 Top 3 Rekomendasi Program Studi</h3>
+            `;
+
+            top3.forEach((prodi, index) => {
+                const rank = ['🥇', '🥈', '🥉'][index];
+                const reasons = generateReasons(prodi, kategoriScores);
+                
+                html += `
+                    <div class="program-studi">
+                        <div class="program-header">
+                            <h3 style="color: #1e3a8a; margin: 0;">${rank} ${prodi.nama}</h3>
+                            <span class="match-badge">${prodi.matchPercentage.toFixed(1)}% Cocok</span>
+                        </div>
+                        
+                        <p style="color: #666; margin: 15px 0; line-height: 1.6;">
+                            <strong>Deskripsi:</strong> ${prodi.deskripsi}
+                        </p>
+
+                        <div style="background: #dbeafe; padding: 15px; border-radius: 10px; margin: 15px 0;">
+                            <strong style="color: #1e40af;">💡 Mengapa cocok untukmu?</strong>
+                            <ul style="margin: 10px 0 0 20px; line-height: 1.8;">
+                                ${reasons.map(r => `<li>${r}</li>`).join('')}
+                            </ul>
+                        </div>
+
+                        <div style="margin: 15px 0;">
+                            <strong>💼 Prospek Karier:</strong>
+                            <div style="margin-top: 10px;">
+                                ${prodi.prospek.map(p => `<span class="skill-tag">${p}</span>`).join('')}
+                            </div>
+                        </div>
+
+                        <div style="margin: 15px 0;">
+                            <strong>🎓 Skills yang Perlu Dikuasai:</strong>
+                            <div style="margin-top: 10px;">
+                                ${prodi.skills.map(s => `<span class="skill-tag">✓ ${s}</span>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `
+                <div class="info-box" style="margin-top: 30px;">
+                    <strong>📌 Catatan Penting:</strong>
+                    <ul style="margin: 10px 0 0 20px; line-height: 1.8;">
+                        <li>Hasil ini adalah rekomendasi berdasarkan analisis ilmiah, bukan keputusan final</li>
+                        <li>Pertimbangkan juga passion, kondisi finansial, dan kesempatan beasiswa</li>
+                        <li>Konsultasikan dengan orangtua, guru BK, dan profesional di bidang terkait</li>
+                        <li>Kunjungi kampus dan ikuti program open house untuk informasi lebih detail</li>
+                    </ul>
+                </div>
+            `;
+
+            container.innerHTML = html;
+
+            // Store results for later use
+            window.currentResults = { top3, kategoriScores, userData };
+        }
+
+        function generateReasons(prodi, kategoriScores) {
+            const reasons = [];
+            
+            // Analisis berdasarkan bobot tertinggi prodi
+            const sortedWeights = Object.entries(prodi.bobot)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 3);
+
+            sortedWeights.forEach(([kriteria, bobot]) => {
+                const userScore = kategoriScores[kriteria] || 0;
+                if (userScore > 60) {
+                    reasons.push(`Skor ${kriteria} kamu (${userScore.toFixed(1)}%) sangat sesuai dengan kebutuhan utama program studi ini`);
+                } else if (userScore > 40) {
+                    reasons.push(`Kamu memiliki potensi baik di bidang ${kriteria} yang relevan dengan jurusan ini`);
+                }
+            });
+
+            // Tambahkan alasan berdasarkan jurusan sekolah
+            if (userData.jurusanSekolah === 'IPA' && prodi.jurusan === 'Saintek') {
+                reasons.push(`Background IPA kamu sangat mendukung untuk program studi ini`);
+            } else if (userData.jurusanSekolah === 'IPS' && prodi.jurusan === 'Soshum') {
+                reasons.push(`Latar belakang IPS kamu cocok dengan karakteristik jurusan ini`);
+            }
+
+            // Tambahkan alasan berdasarkan nilai
+            if (userData.nilaiRata >= 85) {
+                reasons.push(`Nilai rata-rata kamu (${userData.nilaiRata}) menunjukkan kemampuan akademik yang kuat untuk jurusan ini`);
+            }
+
+            return reasons.length > 0 ? reasons : ['Program studi ini sesuai dengan profil minat dan kemampuan kamu secara keseluruhan'];
+        }
+
+        function capitalizeFirst(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
+        function saveResults() {
+            if (!window.currentResults) {
+                alert('Tidak ada hasil yang tersimpan!');
+                return;
+            }
+
+            const savedData = {
+                timestamp: new Date().toISOString(),
+                userData: userData,
+                results: window.currentResults.top3.map(p => ({
+                    nama: p.nama,
+                    matchPercentage: p.matchPercentage
+                }))
+            };
+
+            const saved = JSON.parse(localStorage.getItem('spkResults') || '[]');
+            saved.push(savedData);
+            localStorage.setItem('spkResults', JSON.stringify(saved));
+
+            alert('✅ Hasil berhasil disimpan! Kamu bisa mengaksesnya kapan saja di browser ini.');
+        }
+
+        function printPDF() {
+            window.print();
+        }
+
+        function resetTest() {
+            if (confirm('Apakah kamu yakin ingin mengulang tes dari awal?')) {
+                currentQuestion = 0;
+                answers = [];
+                userData = {};
+                window.currentResults = null;
+                
+                document.getElementById('resultsSection').classList.add('hidden');
+                document.getElementById('landing').classList.remove('hidden');
+            }
+        }
+
+        // Initialize
+        document.getElementById('totalQ').textContent = questions.length;
+    </script>
+</body>
+</html>
