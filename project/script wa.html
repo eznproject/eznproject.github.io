@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menuju WhatsApp</title>
+  <!-- Panggil SweetAlert library -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+</head>
+<body>
+  <h1>Menuju WhatsApp</h1>
+  <label for="nomor">Nomor WhatsApp:</label>
+  <input type="text" id="nomor" placeholder="Masukkan nomor WhatsApp...">
+  <button onclick="menuju()">Kirim ke WhatsApp</button>
+
+  <script>
+    async function menuju() {
+      const nomorWhatsApp = document.getElementById('nomor').value;
+      if (!nomorWhatsApp) {
+        // Jika input kosong, tampilkan pesan error
+        await Swal.fire('Oops!', 'Mohon masukkan nomor WhatsApp terlebih dahulu.', 'error');
+        return;
+      }
+
+      const pesanWhatsApp = encodeURIComponent("Assalamu'alaikum Wr. Wb. \n\nHalo Saya Dari Himatifta ! 🌟 ~ \n\nKami dari Himpunan Mahasiswa Teknik Informatika ingin mengajak kamu untuk bergabung dalam keluarga besar HIMATIFTA! 🚀✨\n\nSetelah mengikuti orientasi lingkungan (orling) bersama, kami merasa semakin dekat dan ingin membagikan sesuatu yang istimewa untuk kalian. Oleh karena itu, kami akan mengadakan Open Recruitment untuk periode 2024/2025, dan kami sangat berharap teman2 dapat mengikuti proses dalam menjadi pengurus himatifta 🌈✨\n\nPada link yang kami sertakan, secepatnya :\n\nLink Form Pendaftaran : \nhttps://forms.gle/6t9L8EpVoJQ8n6Gw5Link \n\nBerkas Pendaftaran : \nhttps://drive.google.com/drive/folders/1um2AvtA3f3gHyby2ziGCNCCpTtDzwelS?usp=sharing \n\nJangan lewatkan kesempatan ini untuk menjadi bagian dari perjalanan kami dalam mengembangkan potensi dan meraih mimpi bersama! 🌠Jadi, teman2 yang mengisi form kehadiran kemarin di orling wajib mengikuti pendaftaran kemarin dan  tetap kami seleksi. Tidak perlu khawatir.\n\n\nTerima kasih atas perhatian dan partisipasinya. Sampai jumpa di sesi wawancara nanti");
+      
+      await Swal.fire('OK!', 'Kirim Pesan ke WhatsApp, ya!', 'success');
+      window.location = "https://api.whatsapp.com/send?phone=" + encodeURIComponent(nomorWhatsApp) + "&text=" + pesanWhatsApp;
+    }
+  </script>
+</body>
+</html>

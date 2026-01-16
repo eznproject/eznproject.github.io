@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+  <meta charset="UTF-8" /><meta
+    content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=5"
+    name="viewport"
+  /><meta content="IE=edge" http-equiv="X-UA-Compatible" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Shippori+Antique:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap"
+    rel="stylesheet"
+  />
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.all.min.js"></script>
+  <link
+    href="https://feeldreams.github.io/heihbd/style.css"
+    rel="stylesheet"
+    type="text/css"
+  />
+  <script src="https://unpkg.com/typeit@8.7.0/dist/index.umd.js"></script>
+  <script
+    src="https://kit.fontawesome.com/4f3ce16e3e.js"
+    crossorigin="anonymous"
+  ></script>
+
+  <head>
+    <title>OPREC HIMATIFTA</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://www.palingit.com/favicon.ico"
+    />
+    <meta name="description" content="HTML Replit Coding" />
+    <!-- 
+  Made with love by Rayys!
+  
+     Blog: https://PalingIT.com
+     Instagram: @rayyarrr
+     TikTok: @rayy4r
+     Email: rayyar0703@gmail.com
+     
+  Thanks to all <3
+
+  Remake By Eznpc
+     Instagram: @_eznpc
+-->
+  </head>
+  <body>
+    <!-- Ganti Audio di sini -->
+    <audio
+      src="https://eznproject.github.io/whatis.mp3"
+      id="linkmp3"
+      class="sembunyi"
+    ></audio>
+
+    <div id="bodyblur">
+      <!-- Wallpaper --><img
+        src="https://feeldreams.github.io/wp9.jpg"
+        id="wallpaper"
+      />
+      <div id="beneranblur"></div>
+    </div>
+
+    <div id="Content">
+      <div id="kadoIn">
+        <!-- Tombol Surat --><img
+          src="https://eznproject.github.io/LOGO_HIMA.png"
+        />
+      </div>
+      <p id="ket">
+        Tanpa Berlama lama langsung aja<br />
+        Klik Logo Himatifta Guys !!!
+      </p>
+
+      <div class="kumpulanstiker">
+        <!-- Stiker untuk Konten -->
+        <img src="https://eznproject.github.io/LOGO_HIMA.png" id="fotostiker" />
+        <img
+          src="https://eznproject.github.io/LOGO_HIMA.png"
+          id="fotostiker1"
+        />
+        <img
+          src="https://eznproject.github.io/LOGO_HIMA.png"
+          id="fotostiker2"
+        />
+        <img
+          src="https://eznproject.github.io/LOGO_HIMA.png"
+          id="fotostiker3"
+        />
+        <img
+          src="https://eznproject.github.io/LOGO_HIMA.png"
+          id="fotostiker4"
+        />
+        <img
+          src="https://eznproject.github.io/LOGO_HIMA.png"
+          id="fotostiker5"
+        />
+
+        <img
+          src="https://eznproject.github.io/LOGO_HIMA.png"
+          id="fotostiker6"
+        />
+      </div>
+
+      <p id="halo" class="halo"></p>
+
+      <div>
+        <blockquote id="bq" data-text="㋡">
+          <p id="kalimat">Kita Ada Sesuatu Nih</p>
+
+          <p id="pesan1">Klik dulu 4 LOVE di Bawah! 😆</p>
+          <div id="kolombaru">
+            <li id="lv1">🤍</li>
+            <li id="lv2">🤍</li>
+            <li id="lv3">🤍</li>
+            <li id="lv4">🤍</li>
+          </div>
+
+          <p id="pesan2">Tunggu...</p>
+          <!-- Pesan -->
+          <p id="pesan3">Ciee.. Ada yang Mau gabung Himatifta nih</p>
+          <p id="pesan4">Terimakasih Udah Ngisi Formulir Ya <br /></p>
+          <p id="pesan5" class="gaya2">Ditunggu Informasi Lebih Lanjutnya Ya</p>
+          <p id="pesan6" class="gaya2">
+            Jangan Lupa FOLLOW IG @himatiftaunitomo
+          </p>
+          <p id="pesan7" class="gaya2">Dan Pantau Terus IGnya YA !!!</p>
+
+          <p id="pesan8" class="gaya2">Kalo gitu kita pamit dulu ya</p>
+          <p id="pesan9" class="gaya2">Sampe Ketemu Lagi ya 😆</p>
+          <p id="pesan10" class="gaya2">
+            BE THE BEST !!!
+          </p>
+
+          <!-- Tombol Lanjut -->
+          <p id="opsL">Klik untuk Lanjut</p>
+        </blockquote>
+      </div>
+
+      <!-- Tombol Kirim Pesan -->
+      <div id="Tombol"><a id="By">&#128140; Lanjut</a></div>
+
+      <!-- Pesan Tambahan -->
+      <p id="katatambahan" class="sembunyi">
+        Kita Juga Gasabar Tau Nunggu Kamu Gabung 😜
+      </p>
+
+      <!-- Pesan Ditolak -->
+      <div id="pesanditolak">
+        <img id="stikerditolak" src="https://feeldreams.github.io/weee.gif" />
+        <p id="kataditolak">Yaudah kalo biasa aja mah 😜</p>
+      </div>
+    </div>
+
+    <script>
+      //audio = new Audio("" + linkmp3.src);
+      const body = document.querySelector("body");
+      const swalst = Swal.mixin({
+        timer: 2300,
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        timerProgressBar: true,
+        imageHeight: 90,
+      });
+      audio = new Audio("" + linkmp3.src);
+      ftganti = 0;
+      fungsi = 0;
+      fungsiAwal = 0;
+      deffotostiker = fotostiker.src;
+      function berjatuhan() {
+        const heart = document.createElement("div");
+        heart.className = "fas fa-snowflake";
+        heart.style.left = Math.random() * 90 + "vw";
+        heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+        body.appendChild(heart);
+      }
+      setInterval(function name(params) {
+        var heartArr = document.querySelectorAll(".fa-snowflake");
+        if (heartArr.length > 100) {
+          heartArr[0].remove();
+        }
+      }, 100);
+      Content.style = "opacity:1;margin-top:16vh";
+      const swals = Swal.mixin({
+        allowOutsideClick: false,
+        cancelButtonColor: "#FF0040",
+        imageHeight: 80,
+      });
+
+      document.getElementById("kadoIn").onclick = function () {
+        if (fungsiAwal == 0) {
+          audio.play();
+          fungsiAwal = 1;
+          kadoIn.style =
+            "transition:all .8s ease;transform:scale(10);opacity:0";
+          wallpaper.style = "transform: scale(1.5);";
+          ket.style = "display:none";
+          setTimeout(initengahan, 300);
+          setTimeout(iniPesanNama, 500);
+        }
+      };
+
+      async function iniPesanNama() {
+        var { value: nama } = await swals.fire({
+          title: "Masukin Nama Panggilan Kamu",
+          input: "text",
+        });
+        if (nama.length > 0) {
+          window.nama = nama;
+          iniPesanNim();
+        } else {
+          await swals.fire("Ups!", "Harap Masukin Nama Panggilan Kamu , ya!");
+          iniPesanNama();
+        }
+      }
+
+      async function iniPesanNim() {
+        var { value: nim } = await swals.fire({
+          title: "Masukin NIM Kamu",
+          input: "text",
+        });
+        if (nim.length == 12) {
+          window.nim = nim;
+          iniPesanInstagram();
+        } else {
+          await swals.fire("Ups!", "Harap Masukin NIM dengan Benar , ya!");
+          iniPesanNim();
+        }
+      }
+
+      async function iniPesanInstagram() {
+        var { value: ig } = await swals.fire({
+          title: "Masukin Username Instagram Kamu Ya",
+          input: "text",
+        });
+        if (ig.length > 0) {
+          window.ig = ig;
+          iniPesanProdi();
+        } else {
+          await swals.fire("Ups!", "Isi Username Kamu ya dengan Benar , ya!");
+          iniPesanInstagram();
+        }
+      }
+
+      async function iniPesanProdi() {
+        var { value: prodi } = await swals.fire({
+          title: "Prodi Kamu ?",
+          input: "text",
+        });
+        if (prodi.length > 4) {
+          window.prodi = prodi;
+          iniPesanAngkatan();
+        } else {
+          await swals.fire("Harap di isi dengan benar untuk Prodinya ya!");
+          iniPesanProdi();
+        }
+      }
+
+      async function iniPesanAngkatan() {
+        var { value: angkatan } = await swals.fire({
+          title: "Angkatan Tahun ?",
+          input: "text",
+        });
+        if (angkatan.length == 4) {
+          window.angkatan = angkatan;
+          vketikhalo = "Hai, " + nama + " ✨";
+          mulainama();
+        } else {
+          await swals.fire("Harap di isi dengan benar ya!");
+          iniPesanAngkatan();
+        }
+      }
+
+      //Variable Pertanyaan Akhir
+      var tanya = "Pen Banget Ga Nih Gabung HIMATIFTA? 😶";
+      var opstanya = "Ayo jawab 😆";
+      var tompositif = "Jelas dong kak !! ";
+      var tomnegatif = "Biasa Aja";
+
+      // async function menuju() {
+      //   // Menyusun pesan yang ingin Anda kirim
+      //   var pesanwhatsapp =
+      //     "Halo Teman teman, perkenalkan saya " +
+      //     nama +
+      //     "\nNim " +
+      //     nim +
+      //     "\nProdi " +
+      //     prodi +
+      //     " " +
+      //     angkatan +
+      //     "\nInstagram @" +
+      //     ig;
+
+      //   // Menampilkan pesan konfirmasi kepada pengguna
+      //   await swals.fire(
+      //     "Klik tombol OK untuk bergabung dengan grup WhatsApp",
+      //     "Sampe Ketemu Di Group " + nama
+      //   );
+
+      //   // Mengarahkan pengguna ke tautan undangan grup WhatsApp dengan pesan yang disertakan
+      //   window.location =
+      //     "https://chat.whatsapp.com/JjiMFRiJaEB4JdvzyBYICU?send?=text=" +
+      //     encodeURIComponent(pesanwhatsapp);
+      // }
+
+      async function menuju() {
+        // Menyusun pesan yang ingin Anda kirim
+        var pesanwhatsapp =
+          "Halo Teman teman, perkenalkan saya " +
+          nama +
+          "\nNim " +
+          nim +
+          "\nProdi " +
+          prodi +
+          " " +
+          angkatan +
+          "\nInstagram @" +
+          ig +
+          "\nSalam Kenal Semuanyaa !!!";
+        // Salin pesanwhatsapp ke clipboard
+        await navigator.clipboard.writeText(pesanwhatsapp);
+
+        // Menampilkan pesan konfirmasi kepada pengguna
+        await swals.fire(
+          "Pesan Balasan Untuk Site Ini Telah Disalin Ke Clipboard Kamu",
+          "Klik tombol OK untuk begabung Ke Group, lalu tempelkan pesan balasan yang telah disalin untuk mengirim pesan xixixi",
+          "success"
+        );
+
+        // Mengarahkan pengguna ke tautan undangan grup WhatsApp
+        window.location.href =
+          "https://chat.whatsapp.com/JjiMFRiJaEB4JdvzyBYICU";
+      }
+    </script>
+    <script src="https://feeldreams.github.io/heihbd/script.js"></script>
+    <!-- Sampai Sini -->
+  </body>
+</html>
