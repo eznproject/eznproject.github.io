@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Untuk Kamu ❤️</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Georgia", serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow-x: hidden;
+      }
+
+      .hearts {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .heart {
+        position: absolute;
+        color: rgba(255, 255, 255, 0.3);
+        font-size: 20px;
+        animation: float 15s infinite;
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(100vh) rotate(0deg);
+          opacity: 0;
+        }
+        10% {
+          opacity: 1;
+        }
+        90% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-100px) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      .container {
+        position: relative;
+        z-index: 2;
+        max-width: 800px;
+        width: 90%;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        padding: 50px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        animation: fadeIn 1s ease-in;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .header h1 {
+        color: #764ba2;
+        font-size: 2.5em;
+        margin-bottom: 10px;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+
+      .header p {
+        color: #666;
+        font-style: italic;
+        font-size: 1.1em;
+      }
+
+      .photo-gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin: 30px 0;
+      }
+
+      .photo-item {
+        position: relative;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease;
+        background: #f0f0f0;
+        aspect-ratio: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+
+      .photo-item:hover {
+        transform: scale(1.05) rotate(2deg);
+      }
+
+      .photo-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .photo-placeholder {
+        color: #999;
+        font-size: 3em;
+      }
+
+      .letter-content {
+        line-height: 2;
+        color: #333;
+        font-size: 1.1em;
+        margin: 30px 0;
+        text-align: justify;
+      }
+
+      .letter-content p {
+        margin-bottom: 20px;
+      }
+
+      .highlight {
+        background: linear-gradient(120deg, #ffd1dc 0%, #ffd1dc 100%);
+        background-repeat: no-repeat;
+        background-size: 100% 40%;
+        background-position: 0 85%;
+        font-weight: bold;
+        color: #764ba2;
+      }
+
+      .signature {
+        text-align: right;
+        margin-top: 40px;
+        font-style: italic;
+        color: #764ba2;
+        font-size: 1.2em;
+      }
+
+      .btn-container {
+        text-align: center;
+        margin-top: 40px;
+      }
+
+      .love-btn {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 15px 40px;
+        font-size: 1.1em;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(118, 75, 162, 0.4);
+      }
+
+      .love-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px rgba(118, 75, 162, 0.5);
+      }
+
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        justify-content: center;
+        align-items: center;
+      }
+
+      .modal-content {
+        max-width: 90%;
+        max-height: 90%;
+        border-radius: 10px;
+        animation: zoomIn 0.3s ease;
+      }
+
+      @keyframes zoomIn {
+        from {
+          transform: scale(0);
+        }
+        to {
+          transform: scale(1);
+        }
+      }
+
+      .close-modal {
+        position: absolute;
+        top: 20px;
+        right: 40px;
+        color: white;
+        font-size: 40px;
+        cursor: pointer;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 30px 20px;
+        }
+
+        .header h1 {
+          font-size: 2em;
+        }
+
+        .letter-content {
+          font-size: 1em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hearts" id="hearts"></div>
+
+    <div class="container">
+      <div class="header">
+        <h1>Untuk Sayangku ❤️</h1>
+        <p>Surat cinta dariku untukmu</p>
+      </div>
+
+      <div class="photo-gallery">
+        <div class="photo-item" onclick="openModal(this)">
+          <span class="photo-placeholder">📷</span>
+          <!-- Ganti dengan: <img src="URL_FOTO_1" alt="Memory 1"> -->
+        </div>
+        <div class="photo-item" onclick="openModal(this)">
+          <span class="photo-placeholder">📷</span>
+          <!-- Ganti dengan: <img src="URL_FOTO_2" alt="Memory 2"> -->
+        </div>
+        <div class="photo-item" onclick="openModal(this)">
+          <span class="photo-placeholder">📷</span>
+          <!-- Ganti dengan: <img src="URL_FOTO_3" alt="Memory 3"> -->
+        </div>
+      </div>
+
+      <div class="letter-content">
+        <p>Sayang,</p>
+
+        <p>
+          Setiap hari bersamamu adalah hari yang special buat aku. Dari pertama
+          kali kita kenal sampai sekarang, rasanya waktu berlalu begitu cepat
+          tapi setiap momennya selalu berkesan.
+        </p>
+
+        <p>
+          Aku bersyukur banget bisa
+          <span class="highlight">kenal dan punya kamu</span> dalam hidup aku.
+          Kamu bukan cuma pacar, tapi juga sahabat terbaik yang selalu ada buat
+          aku.
+        </p>
+
+        <p>
+          Terima kasih sudah mau dengerin cerita-cerita random aku, terima kasih
+          buat semua perhatian dan kasih sayang yang kamu kasih. Semua hal kecil
+          yang kamu lakuin, aku selalu ingat dan
+          <span class="highlight">sangat berarti buat aku</span>.
+        </p>
+
+        <p>
+          Aku janji akan selalu berusaha jadi yang terbaik buat kamu, untuk
+          bikin kamu bahagia, dan untuk selalu ada di saat kamu butuh. Karena
+          <span class="highlight"
+            >kamu layak dapet semua kebahagiaan di dunia ini</span
+          >.
+        </p>
+
+        <p>I love you more than words can say. ❤️</p>
+      </div>
+
+      <div class="signature">
+        Dengan cinta,<br />
+        <strong>Nama Kamu</strong>
+      </div>
+
+      <div class="btn-container">
+        <button class="love-btn" onclick="showLove()">Klik Ini ❤️</button>
+      </div>
+    </div>
+
+    <div class="modal" id="photoModal" onclick="closeModal()">
+      <span class="close-modal">&times;</span>
+      <img class="modal-content" id="modalImg" />
+    </div>
+
+    <script>
+      // Create floating hearts
+      function createHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "%";
+        heart.style.animationDuration = Math.random() * 10 + 10 + "s";
+        heart.style.fontSize = Math.random() * 20 + 15 + "px";
+        document.getElementById("hearts").appendChild(heart);
+
+        setTimeout(() => {
+          heart.remove();
+        }, 15000);
+      }
+
+      setInterval(createHeart, 800);
+
+      // Photo modal
+      function openModal(element) {
+        const img = element.querySelector("img");
+        if (img) {
+          const modal = document.getElementById("photoModal");
+          const modalImg = document.getElementById("modalImg");
+          modal.style.display = "flex";
+          modalImg.src = img.src;
+        }
+      }
+
+      function closeModal() {
+        document.getElementById("photoModal").style.display = "none";
+      }
+
+      // Love button
+      function showLove() {
+        alert(
+          "Aku sayang kamu! ❤️❤️❤️\n\nSemoga kita selalu bahagia ya sayang! 💕"
+        );
+
+        // Create explosion of hearts
+        for (let i = 0; i < 30; i++) {
+          setTimeout(createHeart, i * 100);
+        }
+      }
+    </script>
+  </body>
+</html>

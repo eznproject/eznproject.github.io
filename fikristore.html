@@ -1,0 +1,2020 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FIKRISTORE - Top Up Game & Jual Akun Terpercaya</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary: #7c3aed;
+        --primary-dark: #6d28d9;
+        --secondary: #ec4899;
+        --bg-dark: #0f0f23;
+        --bg-card: #1a1a2e;
+        --bg-hover: #252541;
+        --text: #e2e8f0;
+        --text-muted: #94a3b8;
+        --success: #10b981;
+        --warning: #f59e0b;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: var(--bg-dark);
+        color: var(--text);
+        overflow-x: hidden;
+      }
+
+      /* Header */
+      .header {
+        background: rgba(26, 26, 46, 0.95);
+        backdrop-filter: blur(10px);
+        padding: 1rem 2rem;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        border-bottom: 1px solid rgba(124, 58, 237, 0.2);
+      }
+
+      .nav-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 2rem;
+      }
+
+      .logo {
+        font-size: 1.8rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        cursor: pointer;
+      }
+
+      .search-box {
+        flex: 1;
+        max-width: 500px;
+        position: relative;
+      }
+
+      .search-box input {
+        width: 100%;
+        padding: 0.75rem 1rem 0.75rem 3rem;
+        background: var(--bg-card);
+        border: 1px solid rgba(124, 58, 237, 0.3);
+        border-radius: 12px;
+        color: var(--text);
+        font-size: 0.95rem;
+        transition: all 0.3s;
+      }
+
+      .search-box input:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+      }
+
+      .search-box i {
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-muted);
+      }
+
+      .auth-buttons {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+      }
+
+      .user-info {
+        display: none;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.5rem 1rem;
+        background: var(--bg-card);
+        border-radius: 12px;
+      }
+
+      .user-info.active {
+        display: flex;
+      }
+
+      .user-avatar {
+        width: 35px;
+        height: 35px;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+      }
+
+      .user-details {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .user-name {
+        font-weight: 600;
+        font-size: 0.9rem;
+      }
+
+      .user-points {
+        font-size: 0.75rem;
+        color: var(--warning);
+      }
+
+      .btn {
+        padding: 0.75rem 1.5rem;
+        border-radius: 12px;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 0.95rem;
+        transition: all 0.3s;
+      }
+
+      .btn-primary {
+        background: linear-gradient(
+          135deg,
+          var(--primary),
+          var(--primary-dark)
+        );
+        color: white;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(124, 58, 237, 0.3);
+      }
+
+      .btn-outline {
+        background: transparent;
+        border: 2px solid var(--primary);
+        color: var(--primary);
+      }
+
+      .btn-outline:hover {
+        background: var(--primary);
+        color: white;
+      }
+
+      .btn-logout {
+        padding: 0.5rem 1rem;
+        background: rgba(239, 68, 68, 0.2);
+        color: #ef4444;
+        font-size: 0.85rem;
+      }
+
+      .btn-logout:hover {
+        background: #ef4444;
+        color: white;
+      }
+
+      /* Hero Section */
+      .hero {
+        padding: 4rem 2rem;
+        background: linear-gradient(
+          135deg,
+          rgba(124, 58, 237, 0.1),
+          rgba(236, 72, 153, 0.1)
+        );
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(
+          circle,
+          rgba(124, 58, 237, 0.2),
+          transparent
+        );
+        border-radius: 50%;
+        top: -250px;
+        right: -250px;
+        animation: pulse 4s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+      }
+
+      .hero-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero h1 {
+        font-size: 3.5rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .hero p {
+        font-size: 1.2rem;
+        color: var(--text-muted);
+        margin-bottom: 2rem;
+      }
+
+      /* Container */
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 3rem 2rem;
+      }
+
+      .section-title {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .section-title i {
+        color: var(--primary);
+      }
+
+      /* Game Cards */
+      .games-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .game-card {
+        background: var(--bg-card);
+        border-radius: 16px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.3s;
+        border: 1px solid transparent;
+        position: relative;
+      }
+
+      .game-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      .game-card:hover {
+        transform: translateY(-10px);
+        border-color: var(--primary);
+        box-shadow: 0 20px 40px rgba(124, 58, 237, 0.3);
+      }
+
+      .game-card:hover::before {
+        opacity: 0.1;
+      }
+
+      .game-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        position: relative;
+        z-index: 1;
+      }
+
+      .game-info {
+        padding: 1.25rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      .game-name {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .game-price {
+        color: var(--warning);
+        font-weight: 600;
+        font-size: 0.95rem;
+      }
+
+      .game-tag {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        background: rgba(124, 58, 237, 0.2);
+        color: var(--primary);
+        border-radius: 6px;
+        font-size: 0.8rem;
+        margin-top: 0.5rem;
+      }
+
+      /* Modal */
+      .modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(5px);
+        z-index: 2000;
+        align-items: center;
+        justify-content: center;
+        animation: fadeIn 0.3s;
+      }
+
+      .modal.active {
+        display: flex;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .modal-content {
+        background: var(--bg-card);
+        border-radius: 20px;
+        padding: 2rem;
+        max-width: 500px;
+        width: 90%;
+        max-height: 90vh;
+        overflow-y: auto;
+        animation: slideUp 0.3s;
+      }
+
+      @keyframes slideUp {
+        from {
+          transform: translateY(50px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .modal-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+      }
+
+      .close-modal {
+        background: none;
+        border: none;
+        color: var(--text);
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .close-modal:hover {
+        color: var(--secondary);
+        transform: rotate(90deg);
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+        color: var(--text-muted);
+      }
+
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        width: 100%;
+        padding: 0.75rem;
+        background: var(--bg-dark);
+        border: 1px solid rgba(124, 58, 237, 0.3);
+        border-radius: 12px;
+        color: var(--text);
+        font-size: 0.95rem;
+        transition: all 0.3s;
+      }
+
+      .form-group input:focus,
+      .form-group select:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+      }
+
+      /* Notification */
+      .notification {
+        position: fixed;
+        top: 100px;
+        right: 2rem;
+        background: var(--success);
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        display: none;
+        align-items: center;
+        gap: 1rem;
+        z-index: 3000;
+        animation: slideInRight 0.3s;
+      }
+
+      .notification.active {
+        display: flex;
+      }
+
+      .notification.error {
+        background: #ef4444;
+      }
+
+      @keyframes slideInRight {
+        from {
+          transform: translateX(400px);
+        }
+        to {
+          transform: translateX(0);
+        }
+      }
+
+      /* Product Options */
+      .product-options {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .option-card {
+        padding: 1rem;
+        background: var(--bg-dark);
+        border: 2px solid rgba(124, 58, 237, 0.3);
+        border-radius: 12px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .option-card:hover,
+      .option-card.selected {
+        border-color: var(--primary);
+        background: rgba(124, 58, 237, 0.1);
+      }
+
+      .option-amount {
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: var(--primary);
+      }
+
+      .option-price {
+        color: var(--warning);
+        font-size: 0.9rem;
+      }
+
+      /* Tabs */
+      .tabs {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        border-bottom: 2px solid var(--bg-card);
+      }
+
+      .tab {
+        padding: 1rem 2rem;
+        background: none;
+        border: none;
+        color: var(--text-muted);
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        border-bottom: 3px solid transparent;
+      }
+
+      .tab.active {
+        color: var(--primary);
+        border-bottom-color: var(--primary);
+      }
+
+      .tab-content {
+        display: none;
+      }
+
+      .tab-content.active {
+        display: block;
+      }
+
+      /* Account Card */
+      .account-card {
+        background: var(--bg-card);
+        border-radius: 16px;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+        border: 1px solid rgba(124, 58, 237, 0.2);
+        transition: all 0.3s;
+      }
+
+      .account-card:hover {
+        border-color: var(--primary);
+        transform: translateX(5px);
+      }
+
+      .account-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+
+      .account-game {
+        font-weight: 700;
+        font-size: 1.1rem;
+      }
+
+      .account-price {
+        font-size: 1.3rem;
+        color: var(--warning);
+        font-weight: 700;
+      }
+
+      .account-details {
+        color: var(--text-muted);
+        line-height: 1.6;
+        margin-bottom: 1rem;
+      }
+
+      .discount-badge {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        background: var(--success);
+        color: white;
+        border-radius: 6px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-left: 0.5rem;
+      }
+
+      /* Footer */
+      .footer {
+        background: var(--bg-card);
+        padding: 3rem 2rem;
+        margin-top: 4rem;
+        border-top: 1px solid rgba(124, 58, 237, 0.2);
+      }
+
+      .footer-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+      }
+
+      .footer-section h3 {
+        margin-bottom: 1rem;
+        color: var(--primary);
+      }
+
+      .footer-section p,
+      .footer-section a {
+        color: var(--text-muted);
+        text-decoration: none;
+        display: block;
+        margin-bottom: 0.5rem;
+        transition: color 0.3s;
+      }
+
+      .footer-section a:hover {
+        color: var(--primary);
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .social-icon {
+        width: 40px;
+        height: 40px;
+        background: rgba(124, 58, 237, 0.2);
+        border-radius: 50%;
+        position: relative;
+        transition: all 0.3s;
+      }
+
+      .social-icon i {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 18px;
+        color: #e2e8f0;
+      }
+
+      .social-icon:hover {
+        background: var(--primary);
+        transform: translateY(-3px);
+      }
+
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0.5rem;
+      }
+
+      .hamburger span {
+        width: 25px;
+        height: 3px;
+        background: var(--primary);
+        border-radius: 3px;
+        transition: all 0.3s;
+      }
+
+      .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(8px, 8px);
+      }
+
+      .hamburger.active span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -7px);
+      }
+
+      /* Mobile Menu */
+      .mobile-menu {
+        display: none;
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: var(--bg-card);
+        padding: 1.5rem;
+        border-bottom: 1px solid rgba(124, 58, 237, 0.2);
+        z-index: 999;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+      }
+
+      .mobile-menu.active {
+        max-height: 500px;
+      }
+
+      .mobile-menu .search-box {
+        margin-bottom: 1rem;
+      }
+
+      .mobile-menu .auth-buttons {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .mobile-menu .auth-buttons .btn {
+        width: 100%;
+      }
+
+      .mobile-menu .user-info {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 2rem;
+        }
+
+        .nav-container {
+          flex-wrap: wrap;
+        }
+
+        .search-box {
+          order: 3;
+          width: 100%;
+          max-width: 100%;
+        }
+
+        .auth-buttons {
+          font-size: 0.85rem;
+        }
+
+        .btn {
+          padding: 0.6rem 1rem;
+          font-size: 0.85rem;
+        }
+
+        .games-grid {
+          grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+          gap: 1rem;
+        }
+
+        .product-options {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .tabs {
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+
+        .tab {
+          padding: 0.75rem 1.5rem;
+          white-space: nowrap;
+        }
+      }
+
+      .whatsapp-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: #25d366;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s;
+      }
+
+      .whatsapp-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
+      }
+
+      .point-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        background: rgba(245, 158, 11, 0.2);
+        border: 1px solid var(--warning);
+        border-radius: 8px;
+        color: var(--warning);
+        font-weight: 600;
+        margin-top: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="nav-container">
+        <div class="logo" onclick="window.location.reload()">FIKRISTORE</div>
+
+        <div class="search-box">
+          <i class="bi bi-search"></i>
+          <input type="text" placeholder="Cari game favorit kamu..." />
+        </div>
+
+        <div class="auth-buttons" id="authButtons">
+          <button class="btn btn-outline" onclick="openModal('loginModal')">
+            Login
+          </button>
+          <button class="btn btn-primary" onclick="openModal('registerModal')">
+            Register
+          </button>
+        </div>
+
+        <div class="user-info" id="userInfo">
+          <div class="user-avatar" id="userAvatar">F</div>
+          <div class="user-details">
+            <div class="user-name" id="userName">Guest</div>
+            <div class="user-points" id="userPoints">0 Points</div>
+          </div>
+          <button class="btn btn-logout" onclick="logout()">
+            <i class="bi bi-box-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Top Up Game & Jual Akun Terpercaya</h1>
+        <p>Proses Cepat, Harga Murah, Aman & Terpercaya 24/7</p>
+        <button
+          class="btn btn-primary"
+          onclick="document.getElementById('popularGames').scrollIntoView({behavior: 'smooth'})"
+        >
+          Top Up Sekarang <i class="bi bi-arrow-right"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- Popular Games -->
+    <section class="container" id="popularGames">
+      <h2 class="section-title">
+        <i class="bi bi-fire"></i>
+        Game Populer
+      </h2>
+      <div class="games-grid">
+        <div class="game-card" onclick="openTopUpModal('Mobile Legends')">
+          <img
+            src="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400&h=300&fit=crop"
+            alt="Mobile Legends"
+            class="game-image"
+          />
+          <div class="game-info">
+            <div class="game-name">Mobile Legends</div>
+            <div class="game-price">Mulai dari Rp 5.000</div>
+            <span class="game-tag">Top Up</span>
+          </div>
+        </div>
+
+        <div class="game-card" onclick="openTopUpModal('Free Fire')">
+          <img
+            src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&h=300&fit=crop"
+            alt="Free Fire"
+            class="game-image"
+          />
+          <div class="game-info">
+            <div class="game-name">Free Fire</div>
+            <div class="game-price">Mulai dari Rp 10.000</div>
+            <span class="game-tag">Top Up</span>
+          </div>
+        </div>
+
+        <div class="game-card" onclick="openTopUpModal('Genshin Impact')">
+          <img
+            src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?w=400&h=300&fit=crop"
+            alt="Genshin Impact"
+            class="game-image"
+          />
+          <div class="game-info">
+            <div class="game-name">Genshin Impact</div>
+            <div class="game-price">Mulai dari Rp 15.000</div>
+            <span class="game-tag">Top Up</span>
+          </div>
+        </div>
+
+        <div class="game-card" onclick="openTopUpModal('PUBG Mobile')">
+          <img
+            src="https://images.unsplash.com/photo-1560253023-3ec5d502959f?w=400&h=300&fit=crop"
+            alt="PUBG"
+            class="game-image"
+          />
+          <div class="game-info">
+            <div class="game-name">PUBG Mobile</div>
+            <div class="game-price">Mulai dari Rp 12.000</div>
+            <span class="game-tag">Top Up</span>
+          </div>
+        </div>
+
+        <div class="game-card" onclick="openTopUpModal('Honkai Star Rail')">
+          <img
+            src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&h=300&fit=crop"
+            alt="Honkai Star Rail"
+            class="game-image"
+          />
+          <div class="game-info">
+            <div class="game-name">Honkai Star Rail</div>
+            <div class="game-price">Mulai dari Rp 20.000</div>
+            <span class="game-tag">Top Up</span>
+          </div>
+        </div>
+
+        <div class="game-card" onclick="openTopUpModal('Valorant')">
+          <img
+            src="https://images.unsplash.com/photo-1552820728-8b83bb6b773f?w=400&h=300&fit=crop"
+            alt="Valorant"
+            class="game-image"
+          />
+          <div class="game-info">
+            <div class="game-name">Valorant</div>
+            <div class="game-price">Mulai dari Rp 25.000</div>
+            <span class="game-tag">Top Up</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section class="container">
+      <h2 class="section-title">
+        <i class="bi bi-grid-3x3-gap"></i>
+        Layanan Kami
+      </h2>
+
+      <div class="tabs">
+        <button class="tab active" onclick="switchTab('jualAkun')">
+          <i class="bi bi-shop"></i> Jual Akun
+        </button>
+        <button class="tab" onclick="switchTab('jokiGame')">
+          <i class="bi bi-controller"></i> Joki Game
+        </button>
+      </div>
+
+      <!-- Jual Akun Tab -->
+      <div class="tab-content active" id="jualAkun">
+        <div class="account-card">
+          <div class="account-header">
+            <div class="account-game">Mobile Legends - Mythic Glory</div>
+            <div class="account-price">
+              Rp 500.000
+              <span class="discount-badge" id="discount1" style="display: none"
+                >-10%</span
+              >
+            </div>
+          </div>
+          <div class="account-details">
+            • Daily Commission: Rp 75.000/minggu<br />
+            • Story Quest: Rp 50.000/quest<br />
+            • Spiral Abyss: Rp 150.000<br />
+            • Character Building: Nego
+          </div>
+          <a
+            href="#"
+            class="whatsapp-btn"
+            onclick="orderJoki('Joki Mission Genshin Impact')"
+          >
+            <i class="bi bi-whatsapp"></i> Pesan via WhatsApp
+          </a>
+        </div>
+
+        <div class="account-card">
+          <div class="account-header">
+            <div class="account-game">Joki Push Rank PUBG</div>
+            <div class="account-price">Mulai Rp 80.000</div>
+          </div>
+          <div class="account-details">
+            • Silver → Gold: Rp 80.000<br />
+            • Gold → Platinum: Rp 120.000<br />
+            • Platinum → Diamond: Rp 180.000<br />
+            • Fast & Safe Process
+          </div>
+          <a
+            href="#"
+            class="whatsapp-btn"
+            onclick="orderJoki('Joki Push Rank PUBG')"
+          >
+            <i class="bi bi-whatsapp"></i> Pesan via WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <!-- Joki Game Tab -->
+      <div class="tab-content active" id="jokiGame">
+        <div class="account-card">
+          <div class="account-header">
+            <div class="account-game">Joki Rank Mobile Legends</div>
+            <div class="account-price">Mulai Rp 50.000</div>
+          </div>
+          <div class="account-details">
+            • Epic → Legend: Rp 50.000<br />
+            • Legend → Mythic: Rp 100.000<br />
+            • Mythic → Mythic Glory: Rp 200.000<br />
+            • Garansi Win Rate & Safety
+          </div>
+          <a
+            href="#"
+            class="whatsapp-btn"
+            onclick="orderJoki('Joki Rank Mobile Legends')"
+          >
+            <i class="bi bi-whatsapp"></i> Pesan via WhatsApp
+          </a>
+        </div>
+
+        <div class="account-card">
+          <div class="account-header">
+            <div class="account-game">Joki Mission Genshin Impact</div>
+            <div class="account-price">Mulai Rp 75.000</div>
+          </div>
+          <div class="account-details">
+            • Daily Commission: Rp 75.000/minggu<br />
+            • Story Quest: Rp 50.000/quest<br />
+            • Spiral Abyss: Rp 150.000<br />
+            • Character Building: Negosiasi
+          </div>
+          <a
+            href="#"
+            class="whatsapp-btn"
+            onclick="orderJoki('Joki Mission Genshin Impact')"
+          >
+            <i class="bi bi-whatsapp"></i> Pesan via WhatsApp
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>FIKRISTORE</h3>
+          <p>
+            Platform Top Up Game, Joki, dan Jual Beli Akun Game Terpercaya di
+            Indonesia
+          </p>
+          <div class="social-icons">
+            <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="social-icon"><i class="bi bi-whatsapp"></i></a>
+            <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="social-icon"><i class="bi bi-discord"></i></a>
+          </div>
+        </div>
+
+        <div class="footer-section">
+          <h3>Layanan</h3>
+          <a href="#">Top Up Game</a>
+          <a href="#">Joki Game</a>
+          <a href="#">Jual Akun</a>
+          <a href="#">Voucher Game</a>
+        </div>
+
+        <div class="footer-section">
+          <h3>Informasi</h3>
+          <a href="#">Cara Pemesanan</a>
+          <a href="#">Metode Pembayaran</a>
+          <a href="#">FAQ</a>
+          <a href="#">Syarat & Ketentuan</a>
+        </div>
+
+        <div class="footer-section">
+          <h3>Hubungi Kami</h3>
+          <p><i class="bi bi-whatsapp"></i> +62 812-3456-7890</p>
+          <p><i class="bi bi-envelope"></i> support@fikristore.com</p>
+          <p><i class="bi bi-clock"></i> Buka 24/7</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">Login</h2>
+          <button class="close-modal" onclick="closeModal('loginModal')">
+            <i class="bi bi-x"></i>
+          </button>
+        </div>
+        <form onsubmit="login(event)">
+          <div class="form-group">
+            <label>Email</label>
+            <input
+              type="email"
+              id="loginEmail"
+              required
+              placeholder="example@email.com"
+            />
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input
+              type="password"
+              id="loginPassword"
+              required
+              placeholder="••••••••"
+            />
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%">
+            Login <i class="bi bi-arrow-right"></i>
+          </button>
+          <p
+            style="
+              text-align: center;
+              margin-top: 1rem;
+              color: var(--text-muted);
+            "
+          >
+            Belum punya akun?
+            <a
+              href="#"
+              onclick="closeModal('loginModal'); openModal('registerModal')"
+              style="color: var(--primary)"
+              >Register</a
+            >
+          </p>
+        </form>
+      </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal" id="registerModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">Register</h2>
+          <button class="close-modal" onclick="closeModal('registerModal')">
+            <i class="bi bi-x"></i>
+          </button>
+        </div>
+        <form onsubmit="register(event)">
+          <div class="form-group">
+            <label>Nama Lengkap</label>
+            <input
+              type="text"
+              id="registerName"
+              required
+              placeholder="John Doe"
+            />
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input
+              type="email"
+              id="registerEmail"
+              required
+              placeholder="example@email.com"
+            />
+          </div>
+          <div class="form-group">
+            <label>Password</label>
+            <input
+              type="password"
+              id="registerPassword"
+              required
+              placeholder="••••••••"
+            />
+          </div>
+          <div class="form-group">
+            <label>Nomor WhatsApp</label>
+            <input
+              type="tel"
+              id="registerPhone"
+              required
+              placeholder="081234567890"
+            />
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%">
+            Register <i class="bi bi-arrow-right"></i>
+          </button>
+          <p
+            style="
+              text-align: center;
+              margin-top: 1rem;
+              color: var(--text-muted);
+            "
+          >
+            Sudah punya akun?
+            <a
+              href="#"
+              onclick="closeModal('registerModal'); openModal('loginModal')"
+              style="color: var(--primary)"
+              >Login</a
+            >
+          </p>
+        </form>
+      </div>
+    </div>
+
+    <!-- Top Up Modal -->
+    <div class="modal" id="topUpModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title" id="topUpTitle">Top Up Game</h2>
+          <button class="close-modal" onclick="closeModal('topUpModal')">
+            <i class="bi bi-x"></i>
+          </button>
+        </div>
+        <form onsubmit="processTopUp(event)">
+          <div class="form-group">
+            <label>User ID / Game ID</label>
+            <input
+              type="text"
+              id="userId"
+              required
+              placeholder="Masukkan User ID"
+            />
+          </div>
+          <div class="form-group">
+            <label>Pilih Nominal</label>
+            <div class="product-options" id="nominalOptions"></div>
+          </div>
+          <div class="form-group">
+            <label>Nomor WhatsApp</label>
+            <input
+              type="tel"
+              id="whatsappNumber"
+              required
+              placeholder="081234567890"
+            />
+          </div>
+          <div class="point-badge" id="pointInfo" style="display: none">
+            <i class="bi bi-star-fill"></i>
+            <span id="pointText">Anda akan mendapat 50 points!</span>
+          </div>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            style="width: 100%; margin-top: 1rem"
+          >
+            Bayar Sekarang <i class="bi bi-arrow-right"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+      <i class="bi bi-check-circle" id="notifIcon"></i>
+      <span id="notifText">Sukses!</span>
+    </div>
+
+    <script>
+      // Data
+      const gameNominals = {
+        "Mobile Legends": [
+          { amount: "50 Diamonds", price: 5000, points: 50 },
+          { amount: "100 Diamonds", price: 10000, points: 100 },
+          { amount: "250 Diamonds", price: 25000, points: 250 },
+          { amount: "500 Diamonds", price: 50000, points: 500 },
+        ],
+        "Free Fire": [
+          { amount: "100 Diamonds", price: 10000, points: 100 },
+          { amount: "210 Diamonds", price: 20000, points: 200 },
+          { amount: "530 Diamonds", price: 50000, points: 500 },
+          { amount: "1000 Diamonds", price: 100000, points: 1000 },
+        ],
+        "Genshin Impact": [
+          { amount: "60 Genesis", price: 15000, points: 150 },
+          { amount: "330 Genesis", price: 75000, points: 750 },
+          { amount: "1090 Genesis", price: 250000, points: 2500 },
+          { amount: "2240 Genesis", price: 500000, points: 5000 },
+        ],
+        "PUBG Mobile": [
+          { amount: "60 UC", price: 12000, points: 120 },
+          { amount: "325 UC", price: 60000, points: 600 },
+          { amount: "660 UC", price: 120000, points: 1200 },
+          { amount: "1800 UC", price: 300000, points: 3000 },
+        ],
+        "Honkai Star Rail": [
+          { amount: "60 Oneiric", price: 20000, points: 200 },
+          { amount: "330 Oneiric", price: 100000, points: 1000 },
+          { amount: "1090 Oneiric", price: 300000, points: 3000 },
+          { amount: "2240 Oneiric", price: 600000, points: 6000 },
+        ],
+        Valorant: [
+          { amount: "475 VP", price: 25000, points: 250 },
+          { amount: "1000 VP", price: 50000, points: 500 },
+          { amount: "2050 VP", price: 100000, points: 1000 },
+          { amount: "5150 VP", price: 250000, points: 2500 },
+        ],
+      };
+
+      let currentGame = "";
+      let selectedNominal = null;
+      let currentUser = null;
+
+      // Check logged in user
+      function checkUser() {
+        const user = JSON.parse(localStorage.getItem("currentUser"));
+        if (user) {
+          currentUser = user;
+          document.getElementById("authButtons").style.display = "none";
+          document.getElementById("userInfo").classList.add("active");
+          document.getElementById("userName").textContent = user.name;
+          document.getElementById(
+            "userPoints"
+          ).textContent = `${user.points} Points`;
+          document.getElementById("userAvatar").textContent = user.name
+            .charAt(0)
+            .toUpperCase();
+
+          // Show discounts if logged in
+          document.querySelectorAll('[id^="discount"]').forEach((el) => {
+            el.style.display = "inline-block";
+          });
+        }
+      }
+
+      // toggle Mobile Menu
+      function toggleMobileMenu() {
+        const menu = document.getElementById("mobileMenu");
+        const hamburger = document.getElementById("hamburger");
+
+        menu.classList.toggle("active");
+        hamburger.classList.toggle("active");
+      }
+
+      // Close Mobile Menu
+      function closeMobileMenu() {
+        const menu = document.getElementById("mobileMenu");
+        const hamburger = document.getElementById("hamburger");
+
+        menu.classList.remove("active");
+        hamburger.classList.remove("active");
+      }
+
+      // Close mobile menu when clicking outside
+      document.addEventListener("click", function (event) {
+        const menu = document.getElementById("mobileMenu");
+        const hamburger = document.getElementById("hamburger");
+        const isClickInside =
+          menu.contains(event.target) || hamburger.contains(event.target);
+
+        if (!isClickInside && menu.classList.contains("active")) {
+          closeMobileMenu();
+        }
+      });
+
+      // Modal functions
+      function openModal(modalId) {
+        document.getElementById(modalId).classList.add("active");
+      }
+
+      function closeModal(modalId) {
+        document.getElementById(modalId).classList.remove("active");
+      }
+
+      // Auth functions
+      function register(e) {
+        e.preventDefault();
+        const name = document.getElementById("registerName").value;
+        const email = document.getElementById("registerEmail").value;
+        const password = document.getElementById("registerPassword").value;
+        const phone = document.getElementById("registerPhone").value;
+
+        const users = JSON.parse(localStorage.getItem("users") || "[]");
+
+        if (users.find((u) => u.email === email)) {
+          showNotification("Email sudah terdaftar!", "error");
+          return;
+        }
+
+        const newUser = {
+          name,
+          email,
+          password,
+          phone,
+          points: 0,
+          memberSince: new Date().toISOString(),
+        };
+
+        users.push(newUser);
+        localStorage.setItem("users", JSON.stringify(users));
+
+        closeModal("registerModal");
+        showNotification("Registrasi berhasil! Silakan login.");
+      }
+
+      function login(e) {
+        e.preventDefault();
+        const email = document.getElementById("loginEmail").value;
+        const password = document.getElementById("loginPassword").value;
+
+        const users = JSON.parse(localStorage.getItem("users") || "[]");
+        const user = users.find(
+          (u) => u.email === email && u.password === password
+        );
+
+        if (user) {
+          localStorage.setItem("currentUser", JSON.stringify(user));
+          closeModal("loginModal");
+          checkUser();
+          showNotification(`Selamat datang, ${user.name}!`);
+        } else {
+          showNotification("Email atau password salah!", "error");
+        }
+      }
+
+      function logout() {
+        localStorage.removeItem("currentUser");
+        currentUser = null;
+        document.getElementById("authButtons").style.display = "flex";
+        document.getElementById("userInfo").classList.remove("active");
+        showNotification("Logout berhasil!");
+        setTimeout(() => window.location.reload(), 1000);
+      }
+
+      // Top Up Modal
+      function openTopUpModal(gameName) {
+        currentGame = gameName;
+        document.getElementById(
+          "topUpTitle"
+        ).textContent = `Top Up ${gameName}`;
+
+        const optionsContainer = document.getElementById("nominalOptions");
+        optionsContainer.innerHTML = "";
+
+        gameNominals[gameName].forEach((nominal, index) => {
+          const option = document.createElement("div");
+          option.className = "option-card";
+          option.innerHTML = `
+                    <div class="option-amount">${nominal.amount}</div>
+                    <div class="option-price">Rp ${nominal.price.toLocaleString(
+                      "id-ID"
+                    )}</div>
+                `;
+          option.onclick = () => selectNominal(index, option);
+          optionsContainer.appendChild(option);
+        });
+
+        if (currentUser) {
+          document.getElementById("pointInfo").style.display = "flex";
+          document.getElementById("whatsappNumber").value = currentUser.phone;
+        } else {
+          document.getElementById("pointInfo").style.display = "none";
+        }
+
+        openModal("topUpModal");
+      }
+
+      function selectNominal(index, element) {
+        document.querySelectorAll(".option-card").forEach((card) => {
+          card.classList.remove("selected");
+        });
+        element.classList.add("selected");
+        selectedNominal = gameNominals[currentGame][index];
+
+        if (currentUser) {
+          document.getElementById(
+            "pointText"
+          ).textContent = `Anda akan mendapat ${selectedNominal.points} points!`;
+        }
+      }
+
+      function processTopUp(e) {
+        e.preventDefault();
+
+        if (!selectedNominal) {
+          showNotification("Pilih nominal terlebih dahulu!", "error");
+          return;
+        }
+
+        const userId = document.getElementById("userId").value;
+        const whatsapp = document.getElementById("whatsappNumber").value;
+
+        if (currentUser) {
+          // Update points
+          currentUser.points += selectedNominal.points;
+          const users = JSON.parse(localStorage.getItem("users"));
+          const userIndex = users.findIndex(
+            (u) => u.email === currentUser.email
+          );
+          users[userIndex] = currentUser;
+          localStorage.setItem("users", JSON.stringify(users));
+          localStorage.setItem("currentUser", JSON.stringify(currentUser));
+          checkUser();
+        }
+
+        closeModal("topUpModal");
+        showNotification(
+          currentUser
+            ? `Top Up berhasil! +${selectedNominal.points} points`
+            : "Top Up berhasil! Login untuk dapat points."
+        );
+
+        // Reset form
+        document.getElementById("userId").value = "";
+        selectedNominal = null;
+      }
+
+      // WhatsApp functions
+      function buyAccount(accountName, price) {
+        const finalPrice = currentUser ? price * 0.9 : price;
+        const discount = currentUser ? " (Diskon 10% Member)" : "";
+        const message = `Halo, saya ingin membeli akun:\n\n${accountName}\nHarga: Rp ${finalPrice.toLocaleString(
+          "id-ID"
+        )}${discount}\n\nMohon info lebih lanjut.`;
+
+        window.open(
+          `https://wa.me/6281234567890?text=${encodeURIComponent(message)}`,
+          "_blank"
+        );
+      }
+
+      function orderJoki(serviceName) {
+        const memberStatus = currentUser ? " (Member FIKRISTORE)" : "";
+        const message = `Halo, saya ingin memesan jasa:\n\n${serviceName}${memberStatus}\n\nMohon info lebih lanjut.`;
+
+        window.open(
+          `https://wa.me/6281234567890?text=${encodeURIComponent(message)}`,
+          "_blank"
+        );
+      }
+
+      // Tab switch
+      function switchTab(tabName) {
+        document
+          .querySelectorAll(".tab")
+          .forEach((tab) => tab.classList.remove("active"));
+        document
+          .querySelectorAll(".tab-content")
+          .forEach((content) => content.classList.remove("active"));
+
+        event.target.classList.add("active");
+        document.getElementById(tabName).classList.add("active");
+      }
+
+      // Notification
+      function showNotification(message, type = "success") {
+        const notif = document.getElementById("notification");
+        const icon = document.getElementById("notifIcon");
+        const text = document.getElementById("notifText");
+
+        if (type === "error") {
+          notif.classList.add("error");
+          icon.className = "bi bi-x-circle";
+        } else {
+          notif.classList.remove("error");
+          icon.className = "bi bi-check-circle";
+        }
+
+        text.textContent = message;
+        notif.classList.add("active");
+
+        setTimeout(() => {
+          notif.classList.remove("active");
+        }, 3000);
+      }
+
+      // Close modal on outside click
+      window.onclick = function (event) {
+        if (event.target.classList.contains("modal")) {
+          event.target.classList.remove("active");
+        }
+      };
+
+      // Search functionality
+      document
+        .querySelector(".search-box input")
+        .addEventListener("input", function (e) {
+          const searchTerm = e.target.value.toLowerCase();
+          if (searchTerm.length > 0) {
+            const allGames = [
+              "Mobile Legends",
+              "Free Fire",
+              "Genshin Impact",
+              "PUBG Mobile",
+              "Honkai Star Rail",
+              "Valorant",
+            ];
+            const filtered = allGames.filter((game) =>
+              game.toLowerCase().includes(searchTerm)
+            );
+
+            if (filtered.length > 0) {
+              // Highlight matching games (you can expand this)
+              console.log("Found games:", filtered);
+            }
+          }
+        });
+
+      // Smooth scroll
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        });
+      });
+
+      // Add floating animation to hero
+      const hero = document.querySelector(".hero");
+      let scrollPos = 0;
+      window.addEventListener("scroll", () => {
+        scrollPos = window.pageYOffset;
+        if (hero) {
+          hero.style.transform = `translateY(${scrollPos * 0.5}px)`;
+          hero.style.opacity = 1 - scrollPos / 500;
+        }
+      });
+
+      // Animate cards on scroll
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -100px 0px",
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll(".game-card, .account-card").forEach((card) => {
+        card.style.opacity = "0";
+        card.style.transform = "translateY(30px)";
+        card.style.transition = "all 0.6s ease";
+        observer.observe(card);
+      });
+
+      // Add payment method selector to top up
+      function addPaymentMethods() {
+        const paymentMethods = [
+          { name: "QRIS", icon: "bi-qr-code", fee: 0 },
+          { name: "DANA", icon: "bi-wallet2", fee: 500 },
+          { name: "OVO", icon: "bi-wallet", fee: 500 },
+          { name: "GoPay", icon: "bi-wallet-fill", fee: 500 },
+          { name: "Bank Transfer", icon: "bi-bank", fee: 0 },
+        ];
+        return paymentMethods;
+      }
+
+      // Enhanced top up with payment selection
+      let selectedPayment = null;
+
+      function createPaymentSelector() {
+        const payments = addPaymentMethods();
+        let html =
+          '<div class="form-group"><label>Metode Pembayaran</label><div class="product-options">';
+
+        payments.forEach((method, index) => {
+          html += `
+                    <div class="option-card" onclick="selectPayment(${index})">
+                        <i class="${
+                          method.icon
+                        }" style="font-size: 1.5rem; color: var(--primary); margin-bottom: 0.5rem;"></i>
+                        <div style="font-size: 0.9rem; font-weight: 600;">${
+                          method.name
+                        }</div>
+                        ${
+                          method.fee > 0
+                            ? `<div style="font-size: 0.75rem; color: var(--warning);">+Rp ${method.fee.toLocaleString()}</div>`
+                            : ""
+                        }
+                    </div>
+                `;
+        });
+
+        html += "</div></div>";
+        return html;
+      }
+
+      function selectPayment(index) {
+        const payments = addPaymentMethods();
+        selectedPayment = payments[index];
+
+        document.querySelectorAll(".option-card").forEach((card, i) => {
+          if (Math.floor(i / 4) === 1) {
+            // Payment cards are in second row
+            card.classList.remove("selected");
+          }
+        });
+
+        event.target.closest(".option-card").classList.add("selected");
+      }
+
+      // Add promo code feature
+      function createPromoSection() {
+        return `
+                <div class="form-group" style="margin-top: 1rem;">
+                    <label>Kode Promo (Opsional)</label>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <input type="text" id="promoCode" placeholder="Masukkan kode promo" style="flex: 1;">
+                        <button type="button" class="btn btn-outline" onclick="applyPromo()" style="padding: 0.75rem 1.5rem;">Terapkan</button>
+                    </div>
+                    <div id="promoMessage" style="margin-top: 0.5rem; font-size: 0.85rem;"></div>
+                </div>
+            `;
+      }
+
+      const promoCodes = {
+        WELCOME10: {
+          discount: 10,
+          description: "Diskon 10% untuk member baru",
+        },
+        MEMBER15: { discount: 15, description: "Diskon 15% khusus member" },
+        TOPUP20: { discount: 20, description: "Diskon 20% untuk top up" },
+      };
+
+      let appliedPromo = null;
+
+      function applyPromo() {
+        const code = document.getElementById("promoCode").value.toUpperCase();
+        const message = document.getElementById("promoMessage");
+
+        if (promoCodes[code]) {
+          if (!currentUser && code === "MEMBER15") {
+            message.innerHTML =
+              '<span style="color: #ef4444;">Kode ini hanya untuk member. Silakan login terlebih dahulu.</span>';
+            appliedPromo = null;
+          } else {
+            appliedPromo = promoCodes[code];
+            message.innerHTML = `<span style="color: var(--success);"><i class="bi bi-check-circle"></i> ${appliedPromo.description} berhasil diterapkan!</span>`;
+          }
+        } else {
+          message.innerHTML =
+            '<span style="color: #ef4444;">Kode promo tidak valid.</span>';
+          appliedPromo = null;
+        }
+      }
+
+      // Transaction history for logged in users
+      function saveTransaction(type, details) {
+        if (!currentUser) return;
+
+        const transactions = JSON.parse(
+          localStorage.getItem("transactions") || "[]"
+        );
+        transactions.push({
+          userId: currentUser.email,
+          type: type,
+          details: details,
+          date: new Date().toISOString(),
+          status: "completed",
+        });
+        localStorage.setItem("transactions", JSON.stringify(transactions));
+      }
+
+      // Add FAQ section
+      function createFAQSection() {
+        const faqs = [
+          {
+            q: "Berapa lama proses top up?",
+            a: "Proses top up otomatis dan instant, biasanya 1-5 menit setelah pembayaran dikonfirmasi.",
+          },
+          {
+            q: "Apakah aman membeli akun di sini?",
+            a: "Sangat aman! Semua akun sudah diverifikasi dan bergaransi. Kami juga memberikan panduan keamanan.",
+          },
+          {
+            q: "Bagaimana cara mendapat points?",
+            a: "Login/Register terlebih dahulu, kemudian setiap top up akan mendapat points sesuai nominal.",
+          },
+          {
+            q: "Apakah ada diskon untuk member?",
+            a: "Ya! Member mendapat diskon 10% untuk pembelian akun dan akses ke promo eksklusif.",
+          },
+        ];
+
+        return faqs;
+      }
+
+      // Add price calculator
+      function calculateFinalPrice(basePrice) {
+        let finalPrice = basePrice;
+        let discountText = "";
+
+        if (currentUser) {
+          finalPrice *= 0.9; // 10% member discount
+          discountText += "Diskon Member 10%";
+        }
+
+        if (appliedPromo) {
+          const promoDiscount = (finalPrice * appliedPromo.discount) / 100;
+          finalPrice -= promoDiscount;
+          discountText +=
+            (discountText ? " + " : "") + `Promo ${appliedPromo.discount}%`;
+        }
+
+        return { finalPrice, discountText };
+      }
+
+      // Enhanced processTopUp with full details
+      function processTopUpEnhanced(e) {
+        e.preventDefault();
+
+        if (!selectedNominal) {
+          showNotification("Pilih nominal terlebih dahulu!", "error");
+          return;
+        }
+
+        if (!selectedPayment) {
+          showNotification("Pilih metode pembayaran!", "error");
+          return;
+        }
+
+        const userId = document.getElementById("userId").value;
+        const whatsapp = document.getElementById("whatsappNumber").value;
+
+        const { finalPrice, discountText } = calculateFinalPrice(
+          selectedNominal.price
+        );
+        const totalPrice = finalPrice + (selectedPayment.fee || 0);
+
+        // Save transaction
+        saveTransaction("Top Up", {
+          game: currentGame,
+          nominal: selectedNominal.amount,
+          price: totalPrice,
+          userId: userId,
+          payment: selectedPayment.name,
+        });
+
+        if (currentUser) {
+          // Update points
+          currentUser.points += selectedNominal.points;
+          const users = JSON.parse(localStorage.getItem("users"));
+          const userIndex = users.findIndex(
+            (u) => u.email === currentUser.email
+          );
+          users[userIndex] = currentUser;
+          localStorage.setItem("users", JSON.stringify(users));
+          localStorage.setItem("currentUser", JSON.stringify(currentUser));
+          checkUser();
+        }
+
+        closeModal("topUpModal");
+
+        let message = currentUser
+          ? `Top Up berhasil! +${selectedNominal.points} points`
+          : "Top Up berhasil! Login untuk dapat points.";
+
+        if (discountText) {
+          message += ` (${discountText})`;
+        }
+
+        showNotification(message);
+
+        // Reset
+        document.getElementById("userId").value = "";
+        selectedNominal = null;
+        selectedPayment = null;
+        appliedPromo = null;
+      }
+
+      // Add leaderboard feature
+      function getTopUsers() {
+        const users = JSON.parse(localStorage.getItem("users") || "[]");
+        return users.sort((a, b) => b.points - a.points).slice(0, 10);
+      }
+
+      // Add review system
+      function addReview(gameName, rating, comment) {
+        const reviews = JSON.parse(localStorage.getItem("reviews") || "[]");
+        reviews.push({
+          game: gameName,
+          rating: rating,
+          comment: comment,
+          user: currentUser ? currentUser.name : "Anonymous",
+          date: new Date().toISOString(),
+        });
+        localStorage.setItem("reviews", JSON.stringify(reviews));
+      }
+
+      // Dark mode toggle (already dark by default, but can add light mode)
+      function toggleTheme() {
+        document.body.classList.toggle("light-mode");
+        localStorage.setItem(
+          "theme",
+          document.body.classList.contains("light-mode") ? "light" : "dark"
+        );
+      }
+
+      // Check saved theme
+      const savedTheme = localStorage.getItem("theme");
+      if (savedTheme === "light") {
+        document.body.classList.add("light-mode");
+      }
+
+      // Add voucher generator for admin (bonus feature)
+      function generateVoucher(discount, prefix = "FIKRI") {
+        const code =
+          prefix + Math.random().toString(36).substring(2, 8).toUpperCase();
+        return code;
+      }
+
+      // Initialize app
+      function initApp() {
+        checkUser();
+
+        // Add sample data if first time
+        if (!localStorage.getItem("users")) {
+          const sampleUser = {
+            name: "Demo User",
+            email: "demo@fikristore.com",
+            password: "demo123",
+            phone: "081234567890",
+            points: 5000,
+            memberSince: new Date().toISOString(),
+          };
+          localStorage.setItem("users", JSON.stringify([sampleUser]));
+        }
+      }
+
+      // Run initialization
+      initApp();
+
+      // Add keyboard shortcuts
+      document.addEventListener("keydown", (e) => {
+        // ESC to close modals
+        if (e.key === "Escape") {
+          document.querySelectorAll(".modal").forEach((modal) => {
+            modal.classList.remove("active");
+          });
+        }
+
+        // Ctrl/Cmd + K to focus search
+        if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+          e.preventDefault();
+          document.querySelector(".search-box input").focus();
+        }
+      });
+
+      // Add loading animation
+      window.addEventListener("load", () => {
+        document.body.style.opacity = "0";
+        setTimeout(() => {
+          document.body.style.transition = "opacity 0.5s";
+          document.body.style.opacity = "1";
+        }, 100);
+      });
+
+      // Performance: Lazy load images
+      if ("IntersectionObserver" in window) {
+        const imageObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const img = entry.target;
+              img.src = img.dataset.src || img.src;
+              imageObserver.unobserve(img);
+            }
+          });
+        });
+
+        document.querySelectorAll("img").forEach((img) => {
+          imageObserver.observe(img);
+        });
+      }
+
+      // Add copy to clipboard function
+      function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(() => {
+          showNotification("Disalin ke clipboard!");
+        });
+      }
+
+      // Add share function
+      function shareWebsite() {
+        if (navigator.share) {
+          navigator.share({
+            title: "FIKRISTORE",
+            text: "Top Up Game & Jual Akun Terpercaya!",
+            url: window.location.href,
+          });
+        } else {
+          copyToClipboard(window.location.href);
+        }
+      }
+
+      // Console easter egg
+      console.log(
+        "%cFIKRISTORE",
+        "color: #7c3aed; font-size: 40px; font-weight: bold;"
+      );
+      console.log(
+        "%cSelamat datang di FIKRISTORE! 🎮",
+        "color: #ec4899; font-size: 16px;"
+      );
+      console.log(
+        "%cTip: Gunakan kode promo WELCOME10 untuk diskon!",
+        "color: #10b981; font-size: 14px;"
+      );
+
+      // Initialize
+      checkUser();
+    </script>
+  </body>
+</html>
