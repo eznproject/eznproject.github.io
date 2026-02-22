@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MajorRec Admin | SAW Method Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1e3b8a",
+                        "accent-teal": "#0d9488",
+                        "accent-orange": "#f97316",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#121620",
+                        "card-dark": "#1c2130",
+                        "border-dark": "#2d364d"
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #2d364d; border-radius: 10px; }
+        .saw-gradient { background: linear-gradient(135deg, #1e3b8a 0%, #0d9488 100%); }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="w-64 bg-card-dark border-r border-border-dark flex flex-col shrink-0">
+<div class="p-6 flex items-center gap-3">
+<div class="size-10 bg-primary rounded-lg flex items-center justify-center text-white">
+<span class="material-symbols-outlined">school</span>
+</div>
+<div>
+<h1 class="text-lg font-bold leading-none">MajorRec</h1>
+<p class="text-xs text-slate-400 mt-1 uppercase tracking-widest font-semibold">SAW Method Admin</p>
+</div>
+</div>
+<nav class="flex-1 px-4 py-4 space-y-1 custom-scrollbar overflow-y-auto">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary text-white" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:bg-primary/10 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="text-sm font-medium">Responders</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:bg-primary/10 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">account_balance</span>
+<span class="text-sm font-medium">Universities</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:bg-primary/10 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">book</span>
+<span class="text-sm font-medium">Study Programs</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:bg-primary/10 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">quiz</span>
+<span class="text-sm font-medium">Assessment Questions</span>
+</a>
+<div class="pt-4 pb-2 px-3">
+<p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Analytics</p>
+</div>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:bg-primary/10 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">query_stats</span>
+<span class="text-sm font-medium">SAW Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-400 hover:bg-primary/10 hover:text-white transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+<div class="p-4 border-t border-border-dark">
+<button class="w-full bg-primary hover:bg-primary/80 text-white rounded-lg py-2.5 flex items-center justify-center gap-2 text-sm font-semibold transition-all shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-sm">support_agent</span>
+                    Support Center
+                </button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col min-w-0 overflow-hidden">
+<!-- Top Header -->
+<header class="h-16 bg-card-dark border-b border-border-dark flex items-center justify-between px-8 shrink-0">
+<div class="flex items-center gap-6 flex-1">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xl">search</span>
+<input class="w-full bg-background-dark/50 border border-border-dark rounded-lg py-2 pl-10 pr-4 text-sm focus:outline-none focus:border-primary text-slate-200 placeholder:text-slate-500" placeholder="Search responders, universities..." type="text"/>
+</div>
+<div class="flex items-center bg-background-dark/50 border border-border-dark rounded-lg p-1">
+<button class="px-3 py-1 text-xs font-semibold rounded text-slate-400">Today</button>
+<button class="px-3 py-1 text-xs font-semibold rounded bg-primary text-white">Week</button>
+<button class="px-3 py-1 text-xs font-semibold rounded text-slate-400">Month</button>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-slate-400 hover:text-white bg-background-dark/50 rounded-lg border border-border-dark">
+<span class="material-symbols-outlined">dark_mode</span>
+</button>
+<button class="p-2 text-slate-400 hover:text-white bg-background-dark/50 rounded-lg border border-border-dark relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-accent-orange rounded-full border border-card-dark"></span>
+</button>
+<div class="h-8 w-px bg-border-dark mx-2"></div>
+<div class="flex items-center gap-3">
+<div class="text-right hidden sm:block">
+<p class="text-sm font-semibold">Dr. Sarah Collins</p>
+<p class="text-[10px] text-slate-400">System Admin</p>
+</div>
+<div class="size-10 rounded-full bg-cover bg-center border-2 border-primary" data-alt="Admin user profile picture" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBZuWQs45YxytUFhEDVUiWgV7umcQ3hzEEZCzpMR-21XKoiJ3EEwThsnpK8BVNoGsZGITg-mgz3nz0qiiQOuSS6SZTLJqtlraR6DwRO8h17Sk6o1104v47YXV0DmKaqic0IAFkJo9Xa3Hw19bZeHnNt7OTh098sXy4SJ3ACjbmoi4Zkb1xv1orXXkIdnOjv6bXwyBl5tVKpQXwiawWbIv72KRvVAxKkgrOHl7ofg3x2ylTPy6Nt7HB0fi3cZm9HXgIT6zNhUCC9Y_k')"></div>
+</div>
+</div>
+</header>
+<!-- Dashboard Content -->
+<div class="flex-1 overflow-y-auto custom-scrollbar p-8 space-y-8 bg-background-dark">
+<!-- Metrics Row -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="bg-card-dark p-6 rounded-xl border border-border-dark flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Total Responders</span>
+<span class="material-symbols-outlined text-accent-teal">trending_up</span>
+</div>
+<div class="flex items-baseline gap-3">
+<h3 class="text-3xl font-bold">12,480</h3>
+<span class="text-accent-teal text-sm font-bold">+12.5%</span>
+</div>
+<p class="text-xs text-slate-500">From 11,093 last month</p>
+</div>
+<div class="bg-card-dark p-6 rounded-xl border border-border-dark flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Universities</span>
+<span class="material-symbols-outlined text-primary">apartment</span>
+</div>
+<div class="flex items-baseline gap-3">
+<h3 class="text-3xl font-bold">156</h3>
+<span class="text-accent-teal text-sm font-bold">+2.1%</span>
+</div>
+<p class="text-xs text-slate-500">Active partnered institutions</p>
+</div>
+<div class="bg-card-dark p-6 rounded-xl border border-border-dark flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Study Programs</span>
+<span class="material-symbols-outlined text-accent-orange">school</span>
+</div>
+<div class="flex items-baseline gap-3">
+<h3 class="text-3xl font-bold">842</h3>
+<span class="text-slate-500 text-sm font-bold">0%</span>
+</div>
+<p class="text-xs text-slate-500">Curated academic paths</p>
+</div>
+<div class="bg-card-dark p-6 rounded-xl border border-border-dark flex flex-col gap-2">
+<div class="flex items-center justify-between">
+<span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Completed Today</span>
+<span class="material-symbols-outlined text-accent-teal">verified</span>
+</div>
+<div class="flex items-baseline gap-3">
+<h3 class="text-3xl font-bold">124</h3>
+<span class="text-accent-teal text-sm font-bold">+18%</span>
+</div>
+<p class="text-xs text-slate-500">Assessments finished today</p>
+</div>
+</div>
+<!-- Main Charts Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Top Recommended Majors (Bar Chart) -->
+<div class="lg:col-span-2 bg-card-dark p-6 rounded-xl border border-border-dark">
+<div class="flex items-center justify-between mb-6">
+<h4 class="font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">bar_chart</span>
+                                Top 10 Recommended Majors
+                            </h4>
+<button class="text-xs text-slate-400 hover:text-white">View Full List</button>
+</div>
+<div class="h-64 flex flex-col gap-4">
+<!-- Mockup Bar Chart -->
+<div class="flex items-center gap-4 group">
+<span class="text-xs text-slate-400 w-32 truncate">Computer Science</span>
+<div class="flex-1 bg-background-dark h-3 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full transition-all group-hover:bg-primary/80" style="width: 95%"></div>
+</div>
+<span class="text-xs font-bold w-8">95%</span>
+</div>
+<div class="flex items-center gap-4 group">
+<span class="text-xs text-slate-400 w-32 truncate">Medicine</span>
+<div class="flex-1 bg-background-dark h-3 rounded-full overflow-hidden">
+<div class="bg-accent-teal h-full rounded-full" style="width: 88%"></div>
+</div>
+<span class="text-xs font-bold w-8">88%</span>
+</div>
+<div class="flex items-center gap-4 group">
+<span class="text-xs text-slate-400 w-32 truncate">Law</span>
+<div class="flex-1 bg-background-dark h-3 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 76%"></div>
+</div>
+<span class="text-xs font-bold w-8">76%</span>
+</div>
+<div class="flex items-center gap-4 group">
+<span class="text-xs text-slate-400 w-32 truncate">Management</span>
+<div class="flex-1 bg-background-dark h-3 rounded-full overflow-hidden">
+<div class="bg-accent-teal h-full rounded-full" style="width: 72%"></div>
+</div>
+<span class="text-xs font-bold w-8">72%</span>
+</div>
+<div class="flex items-center gap-4 group">
+<span class="text-xs text-slate-400 w-32 truncate">Visual Communication</span>
+<div class="flex-1 bg-background-dark h-3 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 68%"></div>
+</div>
+<span class="text-xs font-bold w-8">68%</span>
+</div>
+<div class="flex items-center gap-4 group">
+<span class="text-xs text-slate-400 w-32 truncate">Psychology</span>
+<div class="flex-1 bg-background-dark h-3 rounded-full overflow-hidden">
+<div class="bg-accent-teal h-full rounded-full" style="width: 65%"></div>
+</div>
+<span class="text-xs font-bold w-8">65%</span>
+</div>
+</div>
+</div>
+<!-- School Type Distribution (Pie Chart) -->
+<div class="bg-card-dark p-6 rounded-xl border border-border-dark flex flex-col">
+<div class="flex items-center justify-between mb-6">
+<h4 class="font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-accent-orange">pie_chart</span>
+                                School Type
+                            </h4>
+</div>
+<div class="flex-1 flex flex-col items-center justify-center">
+<!-- Mockup Donut Chart -->
+<div class="size-44 rounded-full border-[20px] border-primary border-r-accent-teal border-b-accent-orange relative flex items-center justify-center">
+<div class="text-center">
+<p class="text-2xl font-bold">12.4K</p>
+<p class="text-[10px] text-slate-400 uppercase">Total Users</p>
+</div>
+</div>
+<div class="mt-8 grid grid-cols-3 gap-4 w-full">
+<div class="text-center">
+<div class="flex items-center justify-center gap-1.5 mb-1">
+<span class="size-2 rounded-full bg-primary"></span>
+<span class="text-[10px] text-slate-400 font-bold uppercase">SMA</span>
+</div>
+<p class="text-sm font-bold">58%</p>
+</div>
+<div class="text-center">
+<div class="flex items-center justify-center gap-1.5 mb-1">
+<span class="size-2 rounded-full bg-accent-teal"></span>
+<span class="text-[10px] text-slate-400 font-bold uppercase">SMK</span>
+</div>
+<p class="text-sm font-bold">32%</p>
+</div>
+<div class="text-center">
+<div class="flex items-center justify-center gap-1.5 mb-1">
+<span class="size-2 rounded-full bg-accent-orange"></span>
+<span class="text-[10px] text-slate-400 font-bold uppercase">MA</span>
+</div>
+<p class="text-sm font-bold">10%</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Trends & SAW Analytics Section -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<!-- Assessment Trends (Line Chart) -->
+<div class="bg-card-dark p-6 rounded-xl border border-border-dark">
+<div class="flex items-center justify-between mb-6">
+<h4 class="font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">show_chart</span>
+                                Assessment Trends (30 Days)
+                            </h4>
+</div>
+<div class="h-48 flex items-end justify-between gap-1 px-2">
+<!-- Visualizing a trend line using small bars of varying height -->
+<div class="bg-primary/20 w-full h-1/4 rounded-t-sm"></div>
+<div class="bg-primary/30 w-full h-1/3 rounded-t-sm"></div>
+<div class="bg-primary/20 w-full h-1/2 rounded-t-sm"></div>
+<div class="bg-primary/40 w-full h-2/3 rounded-t-sm"></div>
+<div class="bg-primary/60 w-full h-3/4 rounded-t-sm"></div>
+<div class="bg-primary w-full h-5/6 rounded-t-sm"></div>
+<div class="bg-accent-teal w-full h-full rounded-t-sm"></div>
+<div class="bg-primary w-full h-4/6 rounded-t-sm"></div>
+<div class="bg-primary/50 w-full h-1/2 rounded-t-sm"></div>
+<div class="bg-primary/20 w-full h-1/3 rounded-t-sm"></div>
+<div class="bg-primary/40 w-full h-2/3 rounded-t-sm"></div>
+<div class="bg-accent-teal/80 w-full h-4/5 rounded-t-sm"></div>
+<div class="bg-primary w-full h-full rounded-t-sm"></div>
+<div class="bg-primary/60 w-full h-2/3 rounded-t-sm"></div>
+</div>
+<div class="flex justify-between mt-4 text-[10px] text-slate-500 font-bold uppercase px-2">
+<span>15 Oct</span>
+<span>22 Oct</span>
+<span>29 Oct</span>
+<span>05 Nov</span>
+<span>Today</span>
+</div>
+</div>
+<!-- SAW Criteria Weights -->
+<div class="bg-card-dark p-6 rounded-xl border border-border-dark flex flex-col justify-between">
+<div class="flex items-center justify-between mb-4">
+<h4 class="font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-accent-orange">network_intelligence_history</span>
+                                SAW Criteria Weights
+                            </h4>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-3 bg-background-dark/50 rounded-lg border border-border-dark">
+<div class="flex items-center gap-3">
+<div class="size-2 rounded-full bg-primary"></div>
+<span class="text-sm font-medium">Academic Interest (C1)</span>
+</div>
+<span class="text-sm font-bold">0.35</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-background-dark/50 rounded-lg border border-border-dark">
+<div class="flex items-center gap-3">
+<div class="size-2 rounded-full bg-accent-teal"></div>
+<span class="text-sm font-medium">Intelligence Score (C2)</span>
+</div>
+<span class="text-sm font-bold">0.25</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-background-dark/50 rounded-lg border border-border-dark">
+<div class="flex items-center gap-3">
+<div class="size-2 rounded-full bg-accent-orange"></div>
+<span class="text-sm font-medium">Market Demand (C3)</span>
+</div>
+<span class="text-sm font-bold">0.20</span>
+</div>
+<div class="flex items-center justify-between p-3 bg-background-dark/50 rounded-lg border border-border-dark">
+<div class="flex items-center gap-3">
+<div class="size-2 rounded-full bg-slate-500"></div>
+<span class="text-sm font-medium">Financial Capacity (C4)</span>
+</div>
+<span class="text-sm font-bold">0.20</span>
+</div>
+</div>
+<div class="mt-4 p-3 rounded bg-primary/10 border border-primary/20 text-[10px] text-primary-200">
+<strong>Note:</strong> Weights are calibrated based on 2024 academic year priorities. Simple Additive Weighting (SAW) formula: V<sub>i</sub> = ∑ w<sub>j</sub> r<sub>ij</sub>
+</div>
+</div>
+</div>
+<!-- Data Table Section -->
+<div class="bg-card-dark rounded-xl border border-border-dark overflow-hidden">
+<div class="p-6 border-b border-border-dark flex items-center justify-between flex-wrap gap-4">
+<h4 class="font-bold flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">history</span>
+                            Recent SAW Results
+                        </h4>
+<div class="flex items-center gap-3">
+<button class="flex items-center gap-2 px-3 py-1.5 bg-background-dark border border-border-dark rounded-lg text-xs font-semibold hover:border-slate-500 transition-colors">
+<span class="material-symbols-outlined text-sm">picture_as_pdf</span>
+                                Export PDF
+                            </button>
+<button class="flex items-center gap-2 px-3 py-1.5 bg-background-dark border border-border-dark rounded-lg text-xs font-semibold hover:border-slate-500 transition-colors">
+<span class="material-symbols-outlined text-sm">description</span>
+                                Export Excel
+                            </button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left text-sm">
+<thead>
+<tr class="bg-background-dark/30 text-slate-400 uppercase text-[10px] font-bold tracking-widest border-b border-border-dark">
+<th class="px-6 py-4">Name</th>
+<th class="px-6 py-4">School</th>
+<th class="px-6 py-4">Recommended Major</th>
+<th class="px-6 py-4">SAW Score</th>
+<th class="px-6 py-4">Status</th>
+<th class="px-6 py-4">Date</th>
+<th class="px-6 py-4 text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-dark">
+<tr class="hover:bg-background-dark/20 transition-colors group">
+<td class="px-6 py-4 font-medium">Budi Santoso</td>
+<td class="px-6 py-4 text-slate-400">SMA Negeri 1 Jakarta</td>
+<td class="px-6 py-4 font-semibold text-primary/80">Computer Science</td>
+<td class="px-6 py-4 font-mono">0.942</td>
+<td class="px-6 py-4">
+<span class="px-2.5 py-1 bg-accent-teal/10 text-accent-teal text-[10px] font-bold rounded-full border border-accent-teal/20">High Match</span>
+</td>
+<td class="px-6 py-4 text-slate-400">08 Nov 2024</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary hover:text-white transition-colors">View Detail</button>
+</td>
+</tr>
+<tr class="hover:bg-background-dark/20 transition-colors">
+<td class="px-6 py-4 font-medium">Siti Aminah</td>
+<td class="px-6 py-4 text-slate-400">SMK Bina Karya</td>
+<td class="px-6 py-4 font-semibold text-primary/80">Management</td>
+<td class="px-6 py-4 font-mono">0.825</td>
+<td class="px-6 py-4">
+<span class="px-2.5 py-1 bg-primary/10 text-primary text-[10px] font-bold rounded-full border border-primary/20">Medium Match</span>
+</td>
+<td class="px-6 py-4 text-slate-400">08 Nov 2024</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary hover:text-white transition-colors">View Detail</button>
+</td>
+</tr>
+<tr class="hover:bg-background-dark/20 transition-colors">
+<td class="px-6 py-4 font-medium">Arif Rahmawan</td>
+<td class="px-6 py-4 text-slate-400">MA Al-Hikmah</td>
+<td class="px-6 py-4 font-semibold text-primary/80">Psychology</td>
+<td class="px-6 py-4 font-mono">0.711</td>
+<td class="px-6 py-4">
+<span class="px-2.5 py-1 bg-slate-500/10 text-slate-400 text-[10px] font-bold rounded-full border border-slate-500/20">Low Match</span>
+</td>
+<td class="px-6 py-4 text-slate-400">07 Nov 2024</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary hover:text-white transition-colors">View Detail</button>
+</td>
+</tr>
+<tr class="hover:bg-background-dark/20 transition-colors">
+<td class="px-6 py-4 font-medium">Dewi Lestari</td>
+<td class="px-6 py-4 text-slate-400">SMA 70 Jakarta</td>
+<td class="px-6 py-4 font-semibold text-primary/80">Medicine</td>
+<td class="px-6 py-4 font-mono">0.967</td>
+<td class="px-6 py-4">
+<span class="px-2.5 py-1 bg-accent-teal/10 text-accent-teal text-[10px] font-bold rounded-full border border-accent-teal/20">High Match</span>
+</td>
+<td class="px-6 py-4 text-slate-400">07 Nov 2024</td>
+<td class="px-6 py-4 text-right">
+<button class="text-primary hover:text-white transition-colors">View Detail</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 bg-background-dark/10 border-t border-border-dark flex items-center justify-between">
+<p class="text-xs text-slate-500">Showing 1-4 of 1,240 results</p>
+<div class="flex items-center gap-2">
+<button class="p-1 text-slate-400 hover:text-white disabled:opacity-30" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="size-6 bg-primary text-white text-[10px] font-bold rounded flex items-center justify-center">1</button>
+<button class="size-6 text-slate-400 text-[10px] font-bold rounded flex items-center justify-center hover:bg-background-dark">2</button>
+<button class="size-6 text-slate-400 text-[10px] font-bold rounded flex items-center justify-center hover:bg-background-dark">3</button>
+<button class="p-1 text-slate-400 hover:text-white">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Geographic Distribution Section -->
+<div class="bg-card-dark p-6 rounded-xl border border-border-dark">
+<div class="flex items-center justify-between mb-8">
+<div>
+<h4 class="font-bold flex items-center gap-2 text-lg">
+<span class="material-symbols-outlined text-primary">public</span>
+                                Responder Distribution by Province
+                            </h4>
+<p class="text-xs text-slate-400 mt-1">Geographic reach across Indonesia</p>
+</div>
+<div class="flex gap-4">
+<div class="flex flex-col items-end">
+<span class="text-[10px] font-bold text-slate-500 uppercase">Top Province</span>
+<span class="text-sm font-bold">DKI Jakarta</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-[10px] font-bold text-slate-500 uppercase">Total Provinces</span>
+<span class="text-sm font-bold">34</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+<div class="lg:col-span-3 h-80 bg-background-dark/80 rounded-xl relative overflow-hidden border border-border-dark flex items-center justify-center" data-location="Indonesia" style="">
+<!-- Mockup for a map visualization with pins -->
+<div class="absolute inset-0 opacity-20 bg-[radial-gradient(#1e3b8a_1px,transparent_1px)] [background-size:20px_20px]"></div>
+<div class="relative w-4/5 h-2/3 flex items-center justify-center">
+<span class="text-slate-600 text-xs font-medium italic">Geographic Heatmap Rendering...</span>
+<!-- Simulated Heatmap Spots -->
+<div class="absolute top-1/2 left-1/4 size-8 bg-primary/20 rounded-full animate-pulse border border-primary flex items-center justify-center">
+<div class="size-2 bg-primary rounded-full"></div>
+</div>
+<div class="absolute top-1/3 left-1/2 size-12 bg-accent-teal/20 rounded-full animate-pulse border border-accent-teal flex items-center justify-center">
+<div class="size-3 bg-accent-teal rounded-full"></div>
+</div>
+<div class="absolute bottom-1/4 right-1/4 size-6 bg-accent-orange/20 rounded-full animate-pulse border border-accent-orange flex items-center justify-center">
+<div class="size-2 bg-accent-orange rounded-full"></div>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<h5 class="text-xs font-bold text-slate-400 uppercase tracking-widest border-b border-border-dark pb-2">Regional Ranking</h5>
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<span class="text-xs font-bold text-slate-600">01</span>
+<span class="text-sm font-medium">DKI Jakarta</span>
+</div>
+<span class="text-sm font-bold text-primary">4,281</span>
+</div>
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<span class="text-xs font-bold text-slate-600">02</span>
+<span class="text-sm font-medium">West Java</span>
+</div>
+<span class="text-sm font-bold text-primary">3,104</span>
+</div>
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<span class="text-xs font-bold text-slate-600">03</span>
+<span class="text-sm font-medium">East Java</span>
+</div>
+<span class="text-sm font-bold text-primary">1,942</span>
+</div>
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<span class="text-xs font-bold text-slate-600">04</span>
+<span class="text-sm font-medium">Central Java</span>
+</div>
+<span class="text-sm font-bold text-primary">1,029</span>
+</div>
+<div class="flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<span class="text-xs font-bold text-slate-600">05</span>
+<span class="text-sm font-medium">Banten</span>
+</div>
+<span class="text-sm font-bold text-primary">894</span>
+</div>
+<button class="w-full text-xs font-bold py-2 border border-border-dark rounded-lg hover:bg-background-dark transition-colors mt-2">View All Provinces</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
