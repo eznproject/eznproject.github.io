@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Preview - Sistem Monitoring Kepatuhan TTD</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f7f3f0;
+            font-family: 'Quicksand', sans-serif;
+            padding: 24px;
+            color: #2d2a24;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ----- HEADER ----- */
+        .app-header {
+            background: linear-gradient(135deg, #ff7b6b 0%, #f95b4a 100%);
+            padding: 18px 28px;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            color: #fff;
+            box-shadow: 0 8px 18px rgba(249, 91, 74, 0.30);
+            margin-bottom: 28px;
+        }
+
+        .app-header h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .app-header h1 small {
+            font-weight: 400;
+            font-size: 0.9rem;
+            opacity: 0.85;
+            margin-left: 6px;
+        }
+
+        .header-badge {
+            background: #ffd9b3;
+            color: #7a3e2e;
+            font-weight: 700;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* ----- TABS ----- */
+        .tabs {
+            display: flex;
+            gap: 6px;
+            background: #fff;
+            padding: 6px;
+            border-radius: 60px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #5b4f47;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: 'Quicksand', sans-serif;
+            flex: 1 0 auto;
+        }
+
+        .tab-btn.active {
+            background: #ff7b6b;
+            color: #fff;
+            box-shadow: 0 4px 10px rgba(249, 91, 74, 0.25);
+        }
+
+        .tab-btn:hover:not(.active) {
+            background: #f0e6e0;
+        }
+
+        /* ----- PANELS ----- */
+        .panel {
+            display: none;
+            animation: fade 0.2s ease;
+        }
+
+        .panel.active {
+            display: block;
+        }
+
+        @keyframes fade {
+            from { opacity: 0.2; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ----- CARDS ----- */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 18px;
+            margin-bottom: 28px;
+        }
+
+        .stat-card {
+            background: #fff;
+            border-radius: 24px;
+            padding: 20px 22px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+
+        .stat-card .label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #92887e;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        .stat-card .value {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #2d2a24;
+            margin-top: 4px;
+        }
+
+        .stat-card .sub {
+            font-size: 0.9rem;
+            color: #7b6e63;
+            margin-top: 4px;
+        }
+
+        .stat-card .trend-up {
+            color: #2b8c5e;
+            font-weight: 600;
+        }
+
+        /* ----- BOARD (ular tangga mini) ----- */
+        .board-wrapper {
+            background: #fff;
+            border-radius: 28px;
+            padding: 24px 22px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.04);
+            margin-bottom: 28px;
+            border: 1px solid #f0e8e2;
+        }
+
+        .board-title {
+            font-weight: 700;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .board-title span {
+            background: #f95b4a;
+            color: #fff;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            padding: 2px 12px;
+        }
+
+        .board-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 6px;
+            background: #fcf7f3;
+            padding: 10px;
+            border-radius: 20px;
+        }
+
+        .board-cell {
+            background: #fff;
+            aspect-ratio: 1 / 1;
+            border-radius: 14px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.7rem;
+            text-align: center;
+            padding: 4px;
+            border: 2px solid #efe7e0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            transition: 0.1s;
+            color: #3d352e;
+            line-height: 1.2;
+        }
+
+        .board-cell.start {
+            background: #b6e0c9;
+            border-color: #78b89a;
+        }
+
+        .board-cell.finish {
+            background: #ffd966;
+            border-color: #d4a82c;
+        }
+
+        .board-cell.snake {
+            background: #f9d4d0;
+            border-color: #e69f97;
+        }
+
+        .board-cell.ladder {
+            background: #b8d9f0;
+            border-color: #7bb0d4;
+        }
+
+        .board-cell.komitmen {
+            background: #fae3c9;
+            border-color: #dbb78c;
+        }
+
+        .board-cell .cell-icon {
+            font-size: 1.4rem;
+            line-height: 1;
+        }
+
+        .board-cell .cell-label {
+            font-size: 0.55rem;
+            opacity: 0.7;
+            margin-top: 2px;
+        }
+
+        /* ----- aktivitas & leaderboard ----- */
+        .flex-2col {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 22px;
+            margin-bottom: 28px;
+        }
+
+        .card-panel {
+            background: #fff;
+            border-radius: 24px;
+            padding: 20px 22px;
+            border: 1px solid #f0e8e2;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+        }
+
+        .card-panel h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .activity-item {
+            display: flex;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid #f1ebe6;
+            align-items: center;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 40px;
+            background: #f0dcd2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #6b4d3c;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-content .name {
+            font-weight: 600;
+        }
+
+        .activity-content .desc {
+            font-size: 0.85rem;
+            color: #6b5f54;
+        }
+
+        .activity-time {
+            font-size: 0.7rem;
+            color: #a59588;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #f1ebe6;
+            font-size: 0.9rem;
+        }
+
+        .leaderboard-item:last-child {
+            border-bottom: none;
+        }
+
+        .leaderboard-item .rank {
+            font-weight: 700;
+            color: #92887e;
+            width: 28px;
+        }
+
+        /* ----- admin table ----- */
+        .table-wrap {
+            overflow-x: auto;
+            margin-top: 6px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        th {
+            text-align: left;
+            padding: 12px 8px 8px 0;
+            font-weight: 700;
+            color: #5b4f47;
+            border-bottom: 2px solid #efe7e0;
+        }
+
+        td {
+            padding: 10px 8px 10px 0;
+            border-bottom: 1px solid #f1ebe6;
+        }
+
+        .badge-patuh {
+            background: #b6e0c9;
+            color: #1d6b47;
+            padding: 2px 14px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.7rem;
+        }
+
+        .badge-tidak {
+            background: #f9d4d0;
+            color: #a54a3a;
+            padding: 2px 14px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.7rem;
+        }
+
+        .progress-bar {
+            width: 80px;
+            height: 8px;
+            background: #efe7e0;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #ff7b6b;
+            border-radius: 20px;
+        }
+
+        /* ----- responsive ----- */
+        @media (max-width: 740px) {
+            .flex-2col {
+                grid-template-columns: 1fr;
+            }
+            .board-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .app-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .board-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* utility */
+        .mt-2 { margin-top: 12px; }
+        .text-muted { color: #7b6e63; }
+        .gap-2 { gap: 8px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <header class="app-header">
+        <h1>
+            🩸 IronTrack
+            <small>monitoring TTD</small>
+        </h1>
+        <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+            <span class="header-badge">📅 3 bulan monitoring</span>
+            <span style="background: rgba(255,255,255,0.2); padding: 6px 16px; border-radius: 40px; font-weight: 600; font-size:0.9rem;">👩‍⚕️ Admin</span>
+        </div>
+    </header>
+
+    <!-- TABS -->
+    <div class="tabs">
+        <button class="tab-btn active" data-tab="siswi">🧑‍🎓 Dashboard Siswi</button>
+        <button class="tab-btn" data-tab="admin">📊 Dashboard Admin</button>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- PANEL SISWI -->
+    <!-- ============================================================ -->
+    <div id="panel-siswi" class="panel active">
+
+        <!-- stat cards -->
+        <div class="card-grid">
+            <div class="stat-card">
+                <div class="label">📌 Kepatuhan Minggu Ini</div>
+                <div class="value">1 / 1</div>
+                <div class="sub">✅ sudah minum TTD minggu ini</div>
+            </div>
+            <div class="stat-card">
+                <div class="label">📈 Total Komitmen</div>
+                <div class="value">5</div>
+                <div class="sub">🎯 Kartu komitmen terjaga</div>
+            </div>
+            <div class="stat-card">
+                <div class="label">🏆 Peringkat</div>
+                <div class="value">#3</div>
+                <div class="sub">dari 24 siswi</div>
+            </div>
+            <div class="stat-card">
+                <div class="label">📖 Pengetahuan</div>
+                <div class="value">80%</div>
+                <div class="sub"><span class="trend-up">↑ 15%</span> dari bulan lalu</div>
+            </div>
+        </div>
+
+        <!-- BOARD MINI Ular Tangga + progress -->
+        <div class="board-wrapper">
+            <div class="board-title">
+                🎲 Papan Ular Tangga — Progress Kamu
+                <span>level 5</span>
+            </div>
+            <div class="board-grid">
+                <!-- 36 finish -->
+                <div class="board-cell finish"><span class="cell-icon">🏁</span><span class="cell-label">36 Finish</span></div>
+                <div class="board-cell"><span class="cell-icon">❓</span><span class="cell-label">35</span></div>
+                <div class="board-cell"><span class="cell-icon">🥩</span><span class="cell-label">34</span></div>
+                <div class="board-cell"><span class="cell-icon">⚠️</span><span class="cell-label">33</span></div>
+                <div class="board-cell"><span class="cell-icon">🩸</span><span class="cell-label">32</span></div>
+                <div class="board-cell"><span class="cell-icon">⏰</span><span class="cell-label">31</span></div>
+                <!-- baris 2 -->
+                <div class="board-cell"><span class="cell-icon">💪</span><span class="cell-label">25</span></div>
+                <div class="board-cell"><span class="cell-icon">🧴</span><span class="cell-label">26</span></div>
+                <div class="board-cell"><span class="cell-icon">💬</span><span class="cell-label">27</span></div>
+                <div class="board-cell ladder"><span class="cell-icon">🪜</span><span class="cell-label">28 Naik</span></div>
+                <div class="board-cell komitmen"><span class="cell-icon">📄</span><span class="cell-label">29 Komitmen</span></div>
+                <div class="board-cell"><span class="cell-icon">☕</span><span class="cell-label">30</span></div>
+                <!-- baris 3 -->
+                <div class="board-cell snake"><span class="cell-icon">🐍</span><span class="cell-label">24 Turun</span></div>
+                <div class="board-cell"><span class="cell-icon">⏳</span><span class="cell-label">23</span></div>
+                <div class="board-cell"><span class="cell-icon">✨</span><span class="cell-label">22</span></div>
+                <div class="board-cell"><span class="cell-icon">💡</span><span class="cell-label">21</span></div>
+                <div class="board-cell"><span class="cell-icon">🎁</span><span class="cell-label">20 Bonus</span></div>
+                <div class="board-cell"><span class="cell-icon">🩸</span><span class="cell-label">19</span></div>
+                <!-- baris 4 -->
+                <div class="board-cell"><span class="cell-icon">🚫</span><span class="cell-label">13</span></div>
+                <div class="board-cell komitmen"><span class="cell-icon">📄</span><span class="cell-label">14 Mitos</span></div>
+                <div class="board-cell"><span class="cell-icon">🆘</span><span class="cell-label">15</span></div>
+                <div class="board-cell komitmen"><span class="cell-icon">📄</span><span class="cell-label">16 Komitmen</span></div>
+                <div class="board-cell"><span class="cell-icon">🤒</span><span class="cell-label">17</span></div>
+                <div class="board-cell"><span class="cell-icon">🍵</span><span class="cell-label">18</span></div>
+                <!-- baris 5 -->
+                <div class="board-cell"><span class="cell-icon">🗣️</span><span class="cell-label">12</span></div>
+                <div class="board-cell komitmen"><span class="cell-icon">📄</span><span class="cell-label">11 Komitmen</span></div>
+                <div class="board-cell"><span class="cell-icon">🤢</span><span class="cell-label">10</span></div>
+                <div class="board-cell"><span class="cell-icon">💊</span><span class="cell-label">9</span></div>
+                <div class="board-cell ladder"><span class="cell-icon">🪜</span><span class="cell-label">8 Naik</span></div>
+                <div class="board-cell"><span class="cell-icon">✈️</span><span class="cell-label">7</span></div>
+                <!-- baris 6 start -->
+                <div class="board-cell start"><span class="cell-icon">🚀</span><span class="cell-label">1 Start</span></div>
+                <div class="board-cell"><span class="cell-icon">ℹ️</span><span class="cell-label">2 Info</span></div>
+                <div class="board-cell"><span class="cell-icon">❓</span><span class="cell-label">3</span></div>
+                <div class="board-cell"><span class="cell-icon">📦</span><span class="cell-label">4</span></div>
+                <div class="board-cell"><span class="cell-icon">😳</span><span class="cell-label">5</span></div>
+                <div class="board-cell komitmen"><span class="cell-icon">📄</span><span class="cell-label">6 Komitmen</span></div>
+            </div>
+            <div style="margin-top: 16px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+                <span style="background: #ff7b6b; color: #fff; padding: 6px 18px; border-radius: 40px; font-weight: 600; font-size:0.9rem;">📌 Kamu di kotak 29</span>
+                <span style="font-size:0.85rem; color:#5b4f47;">🎯 Kartu komitmen: <strong>"Aku akan minum TTD setiap Minggu pagi"</strong></span>
+            </div>
+        </div>
+
+        <!-- aktivitas + leaderboard -->
+        <div class="flex-2col">
+            <div class="card-panel">
+                <h3>📋 Aktivitas Terbaru</h3>
+                <div class="activity-item">
+                    <div class="activity-avatar">D</div>
+                    <div class="activity-content">
+                        <div class="name">Dinda</div>
+                        <div class="desc">✅ mencatat minum TTD hari ini</div>
+                    </div>
+                    <div class="activity-time">1 jam lalu</div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-avatar">A</div>
+                    <div class="activity-content">
+                        <div class="name">Anisa</div>
+                        <div class="desc">📄 mengambil Kartu Komitmen baru</div>
+                    </div>
+                    <div class="activity-time">3 jam lalu</div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-avatar">S</div>
+                    <div class="activity-content">
+                        <div class="name">Sari</div>
+                        <div class="desc">🧠 menjawab kuis "Manfaat TTD" dengan benar</div>
+                    </div>
+                    <div class="activity-time">5 jam lalu</div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-avatar">R</div>
+                    <div class="activity-content">
+                        <div class="name">Rina</div>
+                        <div class="desc">⚠️ melaporkan efek samping: mual ringan</div>
+                    </div>
+                    <div class="activity-time">kemarin</div>
+                </div>
+            </div>
+            <div class="card-panel">
+                <h3>🏅 Peringkat Kepatuhan</h3>
+                <div class="leaderboard-item"><span class="rank">#1</span> Siti <span style="font-weight:700;">100%</span></div>
+                <div class="leaderboard-item"><span class="rank">#2</span> Rani <span style="font-weight:700;">95%</span></div>
+                <div class="leaderboard-item"><span class="rank">#3</span> <strong>Kamu</strong> <span style="font-weight:700;">90%</span></div>
+                <div class="leaderboard-item"><span class="rank">#4</span> Dewi <span style="font-weight:700;">85%</span></div>
+                <div class="leaderboard-item"><span class="rank">#5</span> Putri <span style="font-weight:700;">80%</span></div>
+            </div>
+        </div>
+
+        <!-- tombol aksi -->
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+            <button style="background:#ff7b6b; border:none; color:#fff; font-weight:700; padding:12px 28px; border-radius:60px; font-size:1rem; cursor:default; font-family:'Quicksand', sans-serif;">✅ Catat Minum TTD Hari Ini</button>
+            <button style="background:#fff; border:2px solid #efe7e0; font-weight:600; padding:12px 28px; border-radius:60px; font-size:1rem; cursor:default; font-family:'Quicksand', sans-serif;">📖 Lihat Materi</button>
+            <button style="background:#fff; border:2px solid #efe7e0; font-weight:600; padding:12px 28px; border-radius:60px; font-size:1rem; cursor:default; font-family:'Quicksand', sans-serif;">🔔 Pengingat (Minggu)</button>
+        </div>
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- PANEL ADMIN -->
+    <!-- ============================================================ -->
+    <div id="panel-admin" class="panel">
+
+        <!-- stat cards admin -->
+        <div class="card-grid">
+            <div class="stat-card"><div class="label">👥 Total Siswi</div><div class="value">24</div><div class="sub">terdaftar aktif</div></div>
+            <div class="stat-card"><div class="label">📊 Rata-rata Kepatuhan</div><div class="value">78%</div><div class="sub"><span class="trend-up">↑ 12%</span> dari minggu lalu</div></div>
+            <div class="stat-card"><div class="label">✅ Siswi Patuh</div><div class="value">18</div><div class="sub">(75%)</div></div>
+            <div class="stat-card"><div class="label">⚠️ Efek Samping Dilaporkan</div><div class="value">3</div><div class="sub">mual (2) · pusing (1)</div></div>
+        </div>
+
+        <!-- tabel monitoring -->
+        <div class="card-panel">
+            <h3>📋 Daftar Siswi & Status Kepatuhan</h3>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nama</th>
+                            <th>Kelas</th>
+                            <th>Kepatuhan (4 minggu)</th>
+                            <th>Status</th>
+                            <th>Komitmen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Siti A.</strong></td>
+                            <td>X-1</td>
+                            <td><div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div> 100%</td>
+                            <td><span class="badge-patuh">Patuh</span></td>
+                            <td>✅ 4</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Rani P.</strong></td>
+                            <td>X-2</td>
+                            <td><div class="progress-bar"><div class="progress-fill" style="width:80%"></div></div> 80%</td>
+                            <td><span class="badge-patuh">Patuh</span></td>
+                            <td>✅ 3</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dinda M.</strong></td>
+                            <td>X-1</td>
+                            <td><div class="progress-bar"><div class="progress-fill" style="width:45%"></div></div> 45%</td>
+                            <td><span class="badge-tidak">Tidak Patuh</span></td>
+                            <td>⚠️ 1</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Anisa W.</strong></td>
+                            <td>X-3</td>
+                            <td><div class="progress-bar"><div class="progress-fill" style="width:90%"></div></div> 90%</td>
+                            <td><span class="badge-patuh">Patuh</span></td>
+                            <td>✅ 5</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Putri E.</strong></td>
+                            <td>X-2</td>
+                            <td><div class="progress-bar"><div class="progress-fill" style="width:30%"></div></div> 30%</td>
+                            <td><span class="badge-tidak">Tidak Patuh</span></td>
+                            <td>❌ 0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div style="margin-top: 16px; display: flex; gap: 12px; flex-wrap: wrap;">
+                <button style="background:#2d2a24; border:none; color:#fff; font-weight:600; padding:8px 24px; border-radius:40px; cursor:default; font-family:'Quicksand', sans-serif;">📥 Ekspor Data (CSV)</button>
+                <button style="background:#fff; border:2px solid #efe7e0; font-weight:600; padding:8px 24px; border-radius:40px; cursor:default; font-family:'Quicksand', sans-serif;">📈 Lihat Grafik Tren</button>
+            </div>
+        </div>
+
+        <!-- catatan monitoring -->
+        <div style="margin-top: 20px; background: #fcf7f3; border-radius: 24px; padding: 18px 22px; border-left: 6px solid #ff7b6b;">
+            <p style="font-weight:600; margin-bottom:4px;">📌 Catatan Monitoring (3 bulan)</p>
+            <p style="color:#5b4f47; font-size:0.95rem;">
+                Data dikumpulkan dari minggu ke-1 hingga ke-12. Target kepatuhan ≥80% di akhir periode.
+                Saat ini rata-rata kepatuhan <strong>78%</strong> (minggu ke-6). Terjadi peningkatan 12% dari minggu lalu.
+            </p>
+        </div>
+    </div>
+
+    <!-- footer -->
+    <div style="margin-top: 40px; text-align: center; font-size:0.8rem; color:#92887e; border-top:1px solid #efe7e0; padding-top: 24px;">
+        IronTrack — preview sistem monitoring kepatuhan TTD terintegrasi ular tangga • PRD v1.0
+    </div>
+
+</div>
+
+<script>
+    // TAB SWITCH
+    const tabs = document.querySelectorAll('.tab-btn');
+    const panels = {
+        siswi: document.getElementById('panel-siswi'),
+        admin: document.getElementById('panel-admin'),
+    };
+
+    tabs.forEach(btn => {
+        btn.addEventListener('click', () => {
+            tabs.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const target = btn.dataset.tab;
+            Object.keys(panels).forEach(key => {
+                panels[key].classList.toggle('active', key === target);
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
