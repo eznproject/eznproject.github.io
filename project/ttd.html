@@ -3,424 +3,230 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Preview - Sistem Monitoring Kepatuhan TTD</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>IronTrack - Monitoring TTD</title>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             background: #f7f3f0;
             font-family: 'Quicksand', sans-serif;
-            padding: 24px;
+            padding: 20px;
             color: #2d2a24;
         }
+        .container { max-width: 1100px; margin: 0 auto; }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* ----- HEADER ----- */
-        .app-header {
-            background: linear-gradient(135deg, #ff7b6b 0%, #f95b4a 100%);
-            padding: 18px 28px;
-            border-radius: 24px;
+        /* HEADER */
+        .header {
+            background: linear-gradient(135deg, #ff7b6b, #f95b4a);
+            padding: 16px 24px;
+            border-radius: 20px;
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 12px;
-            color: #fff;
-            box-shadow: 0 8px 18px rgba(249, 91, 74, 0.30);
-            margin-bottom: 28px;
-        }
-
-        .app-header h1 {
-            font-size: 1.6rem;
-            font-weight: 700;
-            letter-spacing: -0.3px;
-            display: flex;
             align-items: center;
-            gap: 8px;
+            color: #fff;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
-
-        .app-header h1 small {
-            font-weight: 400;
-            font-size: 0.9rem;
-            opacity: 0.85;
-            margin-left: 6px;
-        }
-
-        .header-badge {
+        .header h1 { font-size: 1.5rem; display: flex; align-items: center; gap: 8px; }
+        .header h1 small { font-size: 0.8rem; opacity: 0.85; font-weight: 400; }
+        .badge-header {
             background: #ffd9b3;
             color: #7a3e2e;
-            font-weight: 700;
-            padding: 6px 16px;
+            padding: 4px 16px;
             border-radius: 40px;
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            font-weight: 700;
+            font-size: 0.8rem;
         }
 
-        /* ----- TABS ----- */
+        /* TABS */
         .tabs {
             display: flex;
             gap: 6px;
             background: #fff;
-            padding: 6px;
-            border-radius: 60px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-            margin-bottom: 28px;
-            flex-wrap: wrap;
+            padding: 5px;
+            border-radius: 50px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
         }
-
         .tab-btn {
-            background: transparent;
+            flex: 1;
             border: none;
-            padding: 10px 24px;
+            background: transparent;
+            padding: 10px 16px;
             border-radius: 40px;
-            font-weight: 600;
-            font-size: 0.95rem;
+            font-weight: 700;
+            font-size: 0.9rem;
             color: #5b4f47;
             cursor: pointer;
-            transition: 0.2s;
             font-family: 'Quicksand', sans-serif;
-            flex: 1 0 auto;
+            transition: 0.2s;
         }
+        .tab-btn.active { background: #ff7b6b; color: #fff; }
+        .tab-btn:hover:not(.active) { background: #f0e6e0; }
 
-        .tab-btn.active {
-            background: #ff7b6b;
-            color: #fff;
-            box-shadow: 0 4px 10px rgba(249, 91, 74, 0.25);
-        }
+        /* PANELS */
+        .panel { display: none; animation: fade 0.25s; }
+        .panel.active { display: block; }
+        @keyframes fade { from { opacity: 0.3; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-        .tab-btn:hover:not(.active) {
-            background: #f0e6e0;
-        }
-
-        /* ----- PANELS ----- */
-        .panel {
-            display: none;
-            animation: fade 0.2s ease;
-        }
-
-        .panel.active {
-            display: block;
-        }
-
-        @keyframes fade {
-            from { opacity: 0.2; transform: translateY(6px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ----- CARDS ----- */
+        /* CARDS */
         .card-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 18px;
-            margin-bottom: 28px;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
         }
-
         .stat-card {
             background: #fff;
-            border-radius: 24px;
-            padding: 20px 22px;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.04);
-            border: 1px solid rgba(0,0,0,0.02);
-        }
-
-        .stat-card .label {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #92887e;
-            text-transform: uppercase;
-            letter-spacing: 0.4px;
-        }
-
-        .stat-card .value {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: #2d2a24;
-            margin-top: 4px;
-        }
-
-        .stat-card .sub {
-            font-size: 0.9rem;
-            color: #7b6e63;
-            margin-top: 4px;
-        }
-
-        .stat-card .trend-up {
-            color: #2b8c5e;
-            font-weight: 600;
-        }
-
-        /* ----- BOARD (ular tangga mini) ----- */
-        .board-wrapper {
-            background: #fff;
-            border-radius: 28px;
-            padding: 24px 22px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.04);
-            margin-bottom: 28px;
+            border-radius: 20px;
+            padding: 16px 18px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
             border: 1px solid #f0e8e2;
         }
+        .stat-card .label { font-size: 0.75rem; font-weight: 700; color: #92887e; text-transform: uppercase; letter-spacing: 0.3px; }
+        .stat-card .value { font-size: 2rem; font-weight: 700; }
+        .stat-card .sub { font-size: 0.8rem; color: #7b6e63; margin-top: 2px; }
 
-        .board-title {
-            font-weight: 700;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 14px;
+        /* BOARD */
+        .board-wrap {
+            background: #fff;
+            border-radius: 24px;
+            padding: 18px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+            border: 1px solid #f0e8e2;
+            margin-bottom: 20px;
         }
-
-        .board-title span {
-            background: #f95b4a;
-            color: #fff;
-            border-radius: 40px;
-            font-size: 0.7rem;
-            padding: 2px 12px;
-        }
-
+        .board-wrap .title { font-weight: 700; font-size: 1.1rem; margin-bottom: 12px; display: flex; gap: 10px; align-items: center; }
         .board-grid {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
-            gap: 6px;
+            gap: 5px;
             background: #fcf7f3;
-            padding: 10px;
-            border-radius: 20px;
+            padding: 8px;
+            border-radius: 16px;
         }
-
-        .board-cell {
+        .cell {
             background: #fff;
-            aspect-ratio: 1 / 1;
-            border-radius: 14px;
+            aspect-ratio: 1/1;
+            border-radius: 12px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            font-size: 0.65rem;
             font-weight: 600;
-            font-size: 0.7rem;
-            text-align: center;
-            padding: 4px;
             border: 2px solid #efe7e0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-            transition: 0.1s;
-            color: #3d352e;
+            text-align: center;
+            padding: 2px;
+            cursor: pointer;
+            transition: 0.15s;
             line-height: 1.2;
         }
+        .cell:hover { transform: scale(1.03); border-color: #ff7b6b; }
+        .cell .icon { font-size: 1.3rem; }
+        .cell.start { background: #b6e0c9; border-color: #78b89a; }
+        .cell.finish { background: #ffd966; border-color: #d4a82c; }
+        .cell.snake { background: #f9d4d0; border-color: #e69f97; }
+        .cell.ladder { background: #b8d9f0; border-color: #7bb0d4; }
+        .cell.komitmen { background: #fae3c9; border-color: #dbb78c; }
+        .cell.current { border-color: #ff7b6b; box-shadow: 0 0 0 3px #ff7b6b; background: #fff5f0; }
+        .cell .num { font-size: 0.55rem; opacity: 0.5; }
 
-        .board-cell.start {
-            background: #b6e0c9;
-            border-color: #78b89a;
-        }
-
-        .board-cell.finish {
-            background: #ffd966;
-            border-color: #d4a82c;
-        }
-
-        .board-cell.snake {
-            background: #f9d4d0;
-            border-color: #e69f97;
-        }
-
-        .board-cell.ladder {
-            background: #b8d9f0;
-            border-color: #7bb0d4;
-        }
-
-        .board-cell.komitmen {
-            background: #fae3c9;
-            border-color: #dbb78c;
-        }
-
-        .board-cell .cell-icon {
-            font-size: 1.4rem;
-            line-height: 1;
-        }
-
-        .board-cell .cell-label {
-            font-size: 0.55rem;
-            opacity: 0.7;
-            margin-top: 2px;
-        }
-
-        /* ----- aktivitas & leaderboard ----- */
-        .flex-2col {
+        /* FLEX 2 COL */
+        .flex-2 {
             display: grid;
             grid-template-columns: 2fr 1fr;
-            gap: 22px;
-            margin-bottom: 28px;
+            gap: 18px;
+            margin-bottom: 20px;
         }
-
         .card-panel {
             background: #fff;
-            border-radius: 24px;
-            padding: 20px 22px;
+            border-radius: 20px;
+            padding: 16px 18px;
             border: 1px solid #f0e8e2;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
         }
-
-        .card-panel h3 {
-            font-size: 1rem;
-            font-weight: 700;
-            margin-bottom: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+        .card-panel h3 { font-size: 1rem; margin-bottom: 12px; display: flex; gap: 8px; align-items: center; }
 
         .activity-item {
             display: flex;
-            gap: 12px;
-            padding: 10px 0;
-            border-bottom: 1px solid #f1ebe6;
-            align-items: center;
-        }
-
-        .activity-item:last-child {
-            border-bottom: none;
-        }
-
-        .activity-avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 40px;
-            background: #f0dcd2;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            color: #6b4d3c;
-            font-size: 0.9rem;
-            flex-shrink: 0;
-        }
-
-        .activity-content {
-            flex: 1;
-        }
-
-        .activity-content .name {
-            font-weight: 600;
-        }
-
-        .activity-content .desc {
-            font-size: 0.85rem;
-            color: #6b5f54;
-        }
-
-        .activity-time {
-            font-size: 0.7rem;
-            color: #a59588;
-        }
-
-        .leaderboard-item {
-            display: flex;
-            justify-content: space-between;
+            gap: 10px;
             padding: 8px 0;
             border-bottom: 1px solid #f1ebe6;
-            font-size: 0.9rem;
+            align-items: center;
         }
-
-        .leaderboard-item:last-child {
-            border-bottom: none;
+        .activity-item:last-child { border-bottom: none; }
+        .activity-avatar {
+            width: 32px; height: 32px; border-radius: 40px; background: #f0dcd2;
+            display: flex; align-items: center; justify-content: center; font-weight: 700;
+            color: #6b4d3c; font-size: 0.8rem; flex-shrink: 0;
         }
+        .activity-content { flex: 1; }
+        .activity-content .name { font-weight: 600; }
+        .activity-content .desc { font-size: 0.8rem; color: #6b5f54; }
+        .activity-time { font-size: 0.65rem; color: #a59588; }
 
-        .leaderboard-item .rank {
-            font-weight: 700;
-            color: #92887e;
-            width: 28px;
+        .lb-item {
+            display: flex; justify-content: space-between; padding: 6px 0;
+            border-bottom: 1px solid #f1ebe6; font-size: 0.85rem;
         }
+        .lb-item:last-child { border-bottom: none; }
+        .lb-item .rank { font-weight: 700; color: #92887e; width: 28px; }
 
-        /* ----- admin table ----- */
-        .table-wrap {
-            overflow-x: auto;
-            margin-top: 6px;
+        /* BUTTONS */
+        .btn-primary {
+            background: #ff7b6b; border: none; color: #fff; font-weight: 700;
+            padding: 10px 24px; border-radius: 60px; font-size: 0.95rem;
+            cursor: pointer; font-family: 'Quicksand', sans-serif;
+            transition: 0.15s;
         }
+        .btn-primary:hover { transform: scale(1.02); background: #f95b4a; }
+        .btn-primary:active { transform: scale(0.97); }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.9rem;
+        .btn-outline {
+            background: #fff; border: 2px solid #efe7e0; font-weight: 600;
+            padding: 10px 24px; border-radius: 60px; font-size: 0.9rem;
+            cursor: pointer; font-family: 'Quicksand', sans-serif;
+            transition: 0.15s;
         }
+        .btn-outline:hover { border-color: #ff7b6b; background: #fff8f5; }
 
-        th {
-            text-align: left;
-            padding: 12px 8px 8px 0;
-            font-weight: 700;
-            color: #5b4f47;
-            border-bottom: 2px solid #efe7e0;
+        .btn-group { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; }
+
+        /* ADMIN TABLE */
+        .table-wrap { overflow-x: auto; margin-top: 6px; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        th { text-align: left; padding: 10px 6px 6px 0; font-weight: 700; color: #5b4f47; border-bottom: 2px solid #efe7e0; }
+        td { padding: 8px 6px 8px 0; border-bottom: 1px solid #f1ebe6; }
+        .badge-patuh { background: #b6e0c9; color: #1d6b47; padding: 0 12px; border-radius: 40px; font-weight: 600; font-size: 0.65rem; }
+        .badge-tidak { background: #f9d4d0; color: #a54a3a; padding: 0 12px; border-radius: 40px; font-weight: 600; font-size: 0.65rem; }
+        .pbar { width: 60px; height: 6px; background: #efe7e0; border-radius: 10px; overflow: hidden; display: inline-block; vertical-align: middle; }
+        .pfill { height: 100%; background: #ff7b6b; border-radius: 10px; }
+
+        /* TOAST */
+        .toast {
+            position: fixed; bottom: 20px; right: 20px;
+            background: #2d2a24; color: #fff; padding: 14px 24px;
+            border-radius: 16px; font-weight: 600; font-size: 0.9rem;
+            opacity: 0; transform: translateY(20px);
+            transition: 0.3s; pointer-events: none;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
         }
+        .toast.show { opacity: 1; transform: translateY(0); }
 
-        td {
-            padding: 10px 8px 10px 0;
-            border-bottom: 1px solid #f1ebe6;
+        /* RESPONSIVE */
+        @media (max-width: 700px) {
+            .flex-2 { grid-template-columns: 1fr; }
+            .board-grid { grid-template-columns: repeat(4, 1fr); }
         }
-
-        .badge-patuh {
-            background: #b6e0c9;
-            color: #1d6b47;
-            padding: 2px 14px;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 0.7rem;
-        }
-
-        .badge-tidak {
-            background: #f9d4d0;
-            color: #a54a3a;
-            padding: 2px 14px;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 0.7rem;
-        }
-
-        .progress-bar {
-            width: 80px;
-            height: 8px;
-            background: #efe7e0;
-            border-radius: 20px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: #ff7b6b;
-            border-radius: 20px;
-        }
-
-        /* ----- responsive ----- */
-        @media (max-width: 740px) {
-            .flex-2col {
-                grid-template-columns: 1fr;
-            }
-            .board-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-            .app-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-        }
-
         @media (max-width: 480px) {
-            .board-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
+            .board-grid { grid-template-columns: repeat(3, 1fr); }
+            .header { flex-direction: column; align-items: flex-start; }
         }
 
-        /* utility */
         .mt-2 { margin-top: 12px; }
-        .text-muted { color: #7b6e63; }
-        .gap-2 { gap: 8px; }
+        .text-muted { color: #7b6e63; font-size: 0.85rem; }
     </style>
 </head>
 <body>
@@ -428,16 +234,13 @@
 <div class="container">
 
     <!-- HEADER -->
-    <header class="app-header">
-        <h1>
-            🩸 IronTrack
-            <small>monitoring TTD</small>
-        </h1>
-        <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
-            <span class="header-badge">📅 3 bulan monitoring</span>
-            <span style="background: rgba(255,255,255,0.2); padding: 6px 16px; border-radius: 40px; font-weight: 600; font-size:0.9rem;">👩‍⚕️ Admin</span>
+    <div class="header">
+        <h1>🩸 IronTrack <small>monitoring TTD</small></h1>
+        <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+            <span class="badge-header">📅 3 bulan monitoring</span>
+            <span style="background:rgba(255,255,255,0.2); padding:4px 14px; border-radius:40px; font-weight:600; font-size:0.8rem;">👩‍⚕️ Admin</span>
         </div>
-    </header>
+    </div>
 
     <!-- TABS -->
     <div class="tabs">
@@ -445,254 +248,403 @@
         <button class="tab-btn" data-tab="admin">📊 Dashboard Admin</button>
     </div>
 
-    <!-- ============================================================ -->
+    <!-- ========================================================= -->
     <!-- PANEL SISWI -->
-    <!-- ============================================================ -->
+    <!-- ========================================================= -->
     <div id="panel-siswi" class="panel active">
 
-        <!-- stat cards -->
+        <!-- STATS -->
         <div class="card-grid">
             <div class="stat-card">
                 <div class="label">📌 Kepatuhan Minggu Ini</div>
-                <div class="value">1 / 1</div>
-                <div class="sub">✅ sudah minum TTD minggu ini</div>
+                <div class="value" id="weeklyCompliance">1/1</div>
+                <div class="sub">✅ sudah minum minggu ini</div>
             </div>
             <div class="stat-card">
                 <div class="label">📈 Total Komitmen</div>
-                <div class="value">5</div>
-                <div class="sub">🎯 Kartu komitmen terjaga</div>
+                <div class="value" id="totalCommitment">5</div>
+                <div class="sub">🎯 kartu komitmen terjaga</div>
             </div>
             <div class="stat-card">
                 <div class="label">🏆 Peringkat</div>
-                <div class="value">#3</div>
+                <div class="value" id="userRank">#3</div>
                 <div class="sub">dari 24 siswi</div>
             </div>
             <div class="stat-card">
-                <div class="label">📖 Pengetahuan</div>
-                <div class="value">80%</div>
-                <div class="sub"><span class="trend-up">↑ 15%</span> dari bulan lalu</div>
+                <div class="label">📖 Skor Pengetahuan</div>
+                <div class="value" id="knowledgeScore">80%</div>
+                <div class="sub"><span style="color:#2b8c5e;font-weight:700;">↑ 15%</span> dari bulan lalu</div>
             </div>
         </div>
 
-        <!-- BOARD MINI Ular Tangga + progress -->
-        <div class="board-wrapper">
-            <div class="board-title">
+        <!-- BOARD -->
+        <div class="board-wrap">
+            <div class="title">
                 🎲 Papan Ular Tangga — Progress Kamu
-                <span>level 5</span>
+                <span style="background:#f95b4a;color:#fff;padding:0 12px;border-radius:40px;font-size:0.7rem;">level 5</span>
             </div>
-            <div class="board-grid">
-                <!-- 36 finish -->
-                <div class="board-cell finish"><span class="cell-icon">🏁</span><span class="cell-label">36 Finish</span></div>
-                <div class="board-cell"><span class="cell-icon">❓</span><span class="cell-label">35</span></div>
-                <div class="board-cell"><span class="cell-icon">🥩</span><span class="cell-label">34</span></div>
-                <div class="board-cell"><span class="cell-icon">⚠️</span><span class="cell-label">33</span></div>
-                <div class="board-cell"><span class="cell-icon">🩸</span><span class="cell-label">32</span></div>
-                <div class="board-cell"><span class="cell-icon">⏰</span><span class="cell-label">31</span></div>
-                <!-- baris 2 -->
-                <div class="board-cell"><span class="cell-icon">💪</span><span class="cell-label">25</span></div>
-                <div class="board-cell"><span class="cell-icon">🧴</span><span class="cell-label">26</span></div>
-                <div class="board-cell"><span class="cell-icon">💬</span><span class="cell-label">27</span></div>
-                <div class="board-cell ladder"><span class="cell-icon">🪜</span><span class="cell-label">28 Naik</span></div>
-                <div class="board-cell komitmen"><span class="cell-icon">📄</span><span class="cell-label">29 Komitmen</span></div>
-                <div class="board-cell"><span class="cell-icon">☕</span><span class="cell-label">30</span></div>
-                <!-- baris 3 -->
-                <div class="board-cell snake"><span class="cell-icon">🐍</span><span class="cell-label">24 Turun</span></div>
-                <div class="board-cell"><span class="cell-icon">⏳</span><span class="cell-label">23</span></div>
-                <div class="board-cell"><span class="cell-icon">✨</span><span class="cell-label">22</span></div>
-                <div class="board-cell"><span class="cell-icon">💡</span><span class="cell-label">21</span></div>
-                <div class="board-cell"><span class="cell-icon">🎁</span><span class="cell-label">20 Bonus</span></div>
-                <div class="board-cell"><span class="cell-icon">🩸</span><span class="cell-label">19</span></div>
-                <!-- baris 4 -->
-                <div class="board-cell"><span class="cell-icon">🚫</span><span class="cell-label">13</span></div>
-                <div class="board-cell komitmen"><span class="cell-icon">📄</span><span class="cell-label">14 Mitos</span></div>
-                <div class="board-cell"><span class="cell-icon">🆘</span><span class="cell-label">15</span></div>
-                <div class="board-cell komitmen"><span class="cell-icon">📄</span><span class="cell-label">16 Komitmen</span></div>
-                <div class="board-cell"><span class="cell-icon">🤒</span><span class="cell-label">17</span></div>
-                <div class="board-cell"><span class="cell-icon">🍵</span><span class="cell-label">18</span></div>
-                <!-- baris 5 -->
-                <div class="board-cell"><span class="cell-icon">🗣️</span><span class="cell-label">12</span></div>
-                <div class="board-cell komitmen"><span class="cell-icon">📄</span><span class="cell-label">11 Komitmen</span></div>
-                <div class="board-cell"><span class="cell-icon">🤢</span><span class="cell-label">10</span></div>
-                <div class="board-cell"><span class="cell-icon">💊</span><span class="cell-label">9</span></div>
-                <div class="board-cell ladder"><span class="cell-icon">🪜</span><span class="cell-label">8 Naik</span></div>
-                <div class="board-cell"><span class="cell-icon">✈️</span><span class="cell-label">7</span></div>
-                <!-- baris 6 start -->
-                <div class="board-cell start"><span class="cell-icon">🚀</span><span class="cell-label">1 Start</span></div>
-                <div class="board-cell"><span class="cell-icon">ℹ️</span><span class="cell-label">2 Info</span></div>
-                <div class="board-cell"><span class="cell-icon">❓</span><span class="cell-label">3</span></div>
-                <div class="board-cell"><span class="cell-icon">📦</span><span class="cell-label">4</span></div>
-                <div class="board-cell"><span class="cell-icon">😳</span><span class="cell-label">5</span></div>
-                <div class="board-cell komitmen"><span class="cell-icon">📄</span><span class="cell-label">6 Komitmen</span></div>
+            <div class="board-grid" id="boardGrid">
+                <!-- akan diisi JS -->
             </div>
-            <div style="margin-top: 16px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
-                <span style="background: #ff7b6b; color: #fff; padding: 6px 18px; border-radius: 40px; font-weight: 600; font-size:0.9rem;">📌 Kamu di kotak 29</span>
-                <span style="font-size:0.85rem; color:#5b4f47;">🎯 Kartu komitmen: <strong>"Aku akan minum TTD setiap Minggu pagi"</strong></span>
+            <div style="margin-top:14px; display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
+                <span style="background:#ff7b6b;color:#fff;padding:4px 16px;border-radius:40px;font-weight:700;font-size:0.85rem;" id="currentPositionDisplay">📍 Kamu di kotak 29</span>
+                <span style="font-size:0.8rem; color:#5b4f47;" id="commitmentDisplay">🎯 Komitmen: "Aku akan minum TTD setiap Minggu pagi"</span>
             </div>
         </div>
 
-        <!-- aktivitas + leaderboard -->
-        <div class="flex-2col">
+        <!-- ACTIVITY + LEADERBOARD -->
+        <div class="flex-2">
             <div class="card-panel">
                 <h3>📋 Aktivitas Terbaru</h3>
-                <div class="activity-item">
-                    <div class="activity-avatar">D</div>
-                    <div class="activity-content">
-                        <div class="name">Dinda</div>
-                        <div class="desc">✅ mencatat minum TTD hari ini</div>
-                    </div>
-                    <div class="activity-time">1 jam lalu</div>
-                </div>
-                <div class="activity-item">
-                    <div class="activity-avatar">A</div>
-                    <div class="activity-content">
-                        <div class="name">Anisa</div>
-                        <div class="desc">📄 mengambil Kartu Komitmen baru</div>
-                    </div>
-                    <div class="activity-time">3 jam lalu</div>
-                </div>
-                <div class="activity-item">
-                    <div class="activity-avatar">S</div>
-                    <div class="activity-content">
-                        <div class="name">Sari</div>
-                        <div class="desc">🧠 menjawab kuis "Manfaat TTD" dengan benar</div>
-                    </div>
-                    <div class="activity-time">5 jam lalu</div>
-                </div>
-                <div class="activity-item">
-                    <div class="activity-avatar">R</div>
-                    <div class="activity-content">
-                        <div class="name">Rina</div>
-                        <div class="desc">⚠️ melaporkan efek samping: mual ringan</div>
-                    </div>
-                    <div class="activity-time">kemarin</div>
+                <div id="activityList">
+                    <!-- diisi JS -->
                 </div>
             </div>
             <div class="card-panel">
                 <h3>🏅 Peringkat Kepatuhan</h3>
-                <div class="leaderboard-item"><span class="rank">#1</span> Siti <span style="font-weight:700;">100%</span></div>
-                <div class="leaderboard-item"><span class="rank">#2</span> Rani <span style="font-weight:700;">95%</span></div>
-                <div class="leaderboard-item"><span class="rank">#3</span> <strong>Kamu</strong> <span style="font-weight:700;">90%</span></div>
-                <div class="leaderboard-item"><span class="rank">#4</span> Dewi <span style="font-weight:700;">85%</span></div>
-                <div class="leaderboard-item"><span class="rank">#5</span> Putri <span style="font-weight:700;">80%</span></div>
+                <div id="leaderboardList">
+                    <!-- diisi JS -->
+                </div>
             </div>
         </div>
 
-        <!-- tombol aksi -->
-        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-            <button style="background:#ff7b6b; border:none; color:#fff; font-weight:700; padding:12px 28px; border-radius:60px; font-size:1rem; cursor:default; font-family:'Quicksand', sans-serif;">✅ Catat Minum TTD Hari Ini</button>
-            <button style="background:#fff; border:2px solid #efe7e0; font-weight:600; padding:12px 28px; border-radius:60px; font-size:1rem; cursor:default; font-family:'Quicksand', sans-serif;">📖 Lihat Materi</button>
-            <button style="background:#fff; border:2px solid #efe7e0; font-weight:600; padding:12px 28px; border-radius:60px; font-size:1rem; cursor:default; font-family:'Quicksand', sans-serif;">🔔 Pengingat (Minggu)</button>
+        <!-- BUTTONS -->
+        <div class="btn-group">
+            <button class="btn-primary" id="btnMinum">✅ Catat Minum TTD Hari Ini</button>
+            <button class="btn-outline" id="btnKuis">📖 Ambil Kuis Harian</button>
+            <button class="btn-outline" id="btnKomitmen">📄 Ambil Kartu Komitmen</button>
+            <button class="btn-outline" id="btnReminder">🔔 Setel Pengingat</button>
         </div>
     </div>
 
-    <!-- ============================================================ -->
+    <!-- ========================================================= -->
     <!-- PANEL ADMIN -->
-    <!-- ============================================================ -->
+    <!-- ========================================================= -->
     <div id="panel-admin" class="panel">
 
-        <!-- stat cards admin -->
         <div class="card-grid">
-            <div class="stat-card"><div class="label">👥 Total Siswi</div><div class="value">24</div><div class="sub">terdaftar aktif</div></div>
-            <div class="stat-card"><div class="label">📊 Rata-rata Kepatuhan</div><div class="value">78%</div><div class="sub"><span class="trend-up">↑ 12%</span> dari minggu lalu</div></div>
-            <div class="stat-card"><div class="label">✅ Siswi Patuh</div><div class="value">18</div><div class="sub">(75%)</div></div>
-            <div class="stat-card"><div class="label">⚠️ Efek Samping Dilaporkan</div><div class="value">3</div><div class="sub">mual (2) · pusing (1)</div></div>
+            <div class="stat-card"><div class="label">👥 Total Siswi</div><div class="value" id="totalStudents">24</div><div class="sub">terdaftar aktif</div></div>
+            <div class="stat-card"><div class="label">📊 Rata-rata Kepatuhan</div><div class="value" id="avgCompliance">78%</div><div class="sub"><span style="color:#2b8c5e;font-weight:700;">↑ 12%</span> dari minggu lalu</div></div>
+            <div class="stat-card"><div class="label">✅ Siswi Patuh</div><div class="value" id="compliantCount">18</div><div class="sub">(75%)</div></div>
+            <div class="stat-card"><div class="label">⚠️ Efek Samping</div><div class="value" id="sideEffectCount">3</div><div class="sub">mual (2) · pusing (1)</div></div>
         </div>
 
-        <!-- tabel monitoring -->
         <div class="card-panel">
             <h3>📋 Daftar Siswi & Status Kepatuhan</h3>
             <div class="table-wrap">
                 <table>
-                    <thead>
-                        <tr>
-                            <th>Nama</th>
-                            <th>Kelas</th>
-                            <th>Kepatuhan (4 minggu)</th>
-                            <th>Status</th>
-                            <th>Komitmen</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Siti A.</strong></td>
-                            <td>X-1</td>
-                            <td><div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div> 100%</td>
-                            <td><span class="badge-patuh">Patuh</span></td>
-                            <td>✅ 4</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Rani P.</strong></td>
-                            <td>X-2</td>
-                            <td><div class="progress-bar"><div class="progress-fill" style="width:80%"></div></div> 80%</td>
-                            <td><span class="badge-patuh">Patuh</span></td>
-                            <td>✅ 3</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Dinda M.</strong></td>
-                            <td>X-1</td>
-                            <td><div class="progress-bar"><div class="progress-fill" style="width:45%"></div></div> 45%</td>
-                            <td><span class="badge-tidak">Tidak Patuh</span></td>
-                            <td>⚠️ 1</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Anisa W.</strong></td>
-                            <td>X-3</td>
-                            <td><div class="progress-bar"><div class="progress-fill" style="width:90%"></div></div> 90%</td>
-                            <td><span class="badge-patuh">Patuh</span></td>
-                            <td>✅ 5</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Putri E.</strong></td>
-                            <td>X-2</td>
-                            <td><div class="progress-bar"><div class="progress-fill" style="width:30%"></div></div> 30%</td>
-                            <td><span class="badge-tidak">Tidak Patuh</span></td>
-                            <td>❌ 0</td>
-                        </tr>
+                    <thead><tr><th>Nama</th><th>Kelas</th><th>Kepatuhan (4 minggu)</th><th>Status</th><th>Komitmen</th></tr></thead>
+                    <tbody id="studentTableBody">
+                        <!-- diisi JS -->
                     </tbody>
                 </table>
             </div>
-            <div style="margin-top: 16px; display: flex; gap: 12px; flex-wrap: wrap;">
-                <button style="background:#2d2a24; border:none; color:#fff; font-weight:600; padding:8px 24px; border-radius:40px; cursor:default; font-family:'Quicksand', sans-serif;">📥 Ekspor Data (CSV)</button>
-                <button style="background:#fff; border:2px solid #efe7e0; font-weight:600; padding:8px 24px; border-radius:40px; cursor:default; font-family:'Quicksand', sans-serif;">📈 Lihat Grafik Tren</button>
+            <div class="btn-group" style="margin-top:14px;">
+                <button class="btn-primary" id="btnExport">📥 Ekspor Data (CSV)</button>
+                <button class="btn-outline" id="btnRefresh">🔄 Refresh Data</button>
             </div>
         </div>
 
-        <!-- catatan monitoring -->
-        <div style="margin-top: 20px; background: #fcf7f3; border-radius: 24px; padding: 18px 22px; border-left: 6px solid #ff7b6b;">
-            <p style="font-weight:600; margin-bottom:4px;">📌 Catatan Monitoring (3 bulan)</p>
-            <p style="color:#5b4f47; font-size:0.95rem;">
+        <div style="margin-top:16px; background:#fcf7f3; border-radius:20px; padding:16px 20px; border-left:5px solid #ff7b6b;">
+            <p style="font-weight:700; margin-bottom:4px;">📌 Catatan Monitoring (3 bulan)</p>
+            <p style="color:#5b4f47; font-size:0.9rem;" id="monitoringNote">
                 Data dikumpulkan dari minggu ke-1 hingga ke-12. Target kepatuhan ≥80% di akhir periode.
                 Saat ini rata-rata kepatuhan <strong>78%</strong> (minggu ke-6). Terjadi peningkatan 12% dari minggu lalu.
             </p>
         </div>
     </div>
 
-    <!-- footer -->
-    <div style="margin-top: 40px; text-align: center; font-size:0.8rem; color:#92887e; border-top:1px solid #efe7e0; padding-top: 24px;">
-        IronTrack — preview sistem monitoring kepatuhan TTD terintegrasi ular tangga • PRD v1.0
-    </div>
-
+    <!-- TOAST NOTIFICATION -->
+    <div class="toast" id="toast"></div>
 </div>
 
 <script>
-    // TAB SWITCH
-    const tabs = document.querySelectorAll('.tab-btn');
-    const panels = {
-        siswi: document.getElementById('panel-siswi'),
-        admin: document.getElementById('panel-admin'),
+    // ================================================================
+    // DATA
+    // ================================================================
+    const cellsData = [
+        { id: 1, label: 'Start', icon: '🚀', cls: 'start' },
+        { id: 2, label: 'Info', icon: 'ℹ️', cls: '' },
+        { id: 3, label: 'Pertanyaan', icon: '❓', cls: '' },
+        { id: 4, label: 'Simpan', icon: '📦', cls: '' },
+        { id: 5, label: 'Malu?', icon: '😳', cls: '' },
+        { id: 6, label: 'Komitmen', icon: '📄', cls: 'komitmen' },
+        { id: 7, label: 'Liburan', icon: '✈️', cls: '' },
+        { id: 8, label: 'Naik!', icon: '🪜', cls: 'ladder' },
+        { id: 9, label: 'Vitamin', icon: '💊', cls: '' },
+        { id: 10, label: 'Efek Samping', icon: '🤢', cls: '' },
+        { id: 11, label: 'Komitmen', icon: '📄', cls: 'komitmen' },
+        { id: 12, label: 'Diskusi', icon: '🗣️', cls: '' },
+        { id: 13, label: 'Makanan', icon: '🚫', cls: '' },
+        { id: 14, label: 'Mitos', icon: '📄', cls: 'komitmen' },
+        { id: 15, label: 'Tanda Anemia', icon: '🆘', cls: '' },
+        { id: 16, label: 'Komitmen', icon: '📄', cls: 'komitmen' },
+        { id: 17, label: 'Sakit', icon: '🤒', cls: '' },
+        { id: 18, label: 'Teh', icon: '🍵', cls: '' },
+        { id: 19, label: 'Sel Darah', icon: '🩸', cls: '' },
+        { id: 20, label: 'Bonus!', icon: '🎁', cls: '' },
+        { id: 21, label: 'Mulai', icon: '💡', cls: '' },
+        { id: 22, label: 'Manfaat', icon: '✨', cls: '' },
+        { id: 23, label: 'Lupa', icon: '⏳', cls: '' },
+        { id: 24, label: 'Turun!', icon: '🐍', cls: 'snake' },
+        { id: 25, label: 'Kekurangan', icon: '💪', cls: '' },
+        { id: 26, label: 'Peragakan', icon: '🧴', cls: '' },
+        { id: 27, label: 'Teman', icon: '💬', cls: '' },
+        { id: 28, label: 'Naik!', icon: '🪜', cls: 'ladder' },
+        { id: 29, label: 'Komitmen', icon: '📄', cls: 'komitmen' },
+        { id: 30, label: 'Teh/Kopi', icon: '☕', cls: '' },
+        { id: 31, label: 'Waktu Minum', icon: '⏰', cls: '' },
+        { id: 32, label: 'Haid', icon: '🩸', cls: '' },
+        { id: 33, label: 'Kemandulan', icon: '⚠️', cls: '' },
+        { id: 34, label: 'Makanan Zat Besi', icon: '🥩', cls: '' },
+        { id: 35, label: 'Manfaat Rutin', icon: '❓', cls: '' },
+        { id: 36, label: 'Finish!', icon: '🏁', cls: 'finish' }
+    ];
+
+    // Urutan tampilan board: dari 36 ke 1 (zigzag)
+    function getBoardOrder() {
+        const order = [];
+        for (let row = 5; row >= 0; row--) {
+            const start = row * 6;
+            const end = start + 6;
+            if (row % 2 === 0) {
+                for (let i = start; i < end; i++) order.push(i);
+            } else {
+                for (let i = end - 1; i >= start; i--) order.push(i);
+            }
+        }
+        return order;
+    }
+
+    // State
+    let state = {
+        currentCell: 29,
+        weeklyCompliance: '1/1',
+        totalCommitment: 5,
+        knowledgeScore: 80,
+        userRank: '#3',
+        commitment: '"Aku akan minum TTD setiap Minggu pagi"',
+        activities: [
+            { name: 'Dinda', action: '✅ mencatat minum TTD hari ini', time: '1 jam lalu' },
+            { name: 'Anisa', action: '📄 mengambil Kartu Komitmen baru', time: '3 jam lalu' },
+            { name: 'Sari', action: '🧠 menjawab kuis "Manfaat TTD" dengan benar', time: '5 jam lalu' },
+            { name: 'Rina', action: '⚠️ melaporkan efek samping: mual ringan', time: 'kemarin' }
+        ],
+        leaderboard: [
+            { name: 'Siti', score: '100%' },
+            { name: 'Rani', score: '95%' },
+            { name: 'Kamu', score: '90%' },
+            { name: 'Dewi', score: '85%' },
+            { name: 'Putri', score: '80%' }
+        ],
+        students: [
+            { name: 'Siti A.', kelas: 'X-1', compliance: 100, status: 'Patuh', commitment: 4 },
+            { name: 'Rani P.', kelas: 'X-2', compliance: 80, status: 'Patuh', commitment: 3 },
+            { name: 'Dinda M.', kelas: 'X-1', compliance: 45, status: 'Tidak Patuh', commitment: 1 },
+            { name: 'Anisa W.', kelas: 'X-3', compliance: 90, status: 'Patuh', commitment: 5 },
+            { name: 'Putri E.', kelas: 'X-2', compliance: 30, status: 'Tidak Patuh', commitment: 0 }
+        ]
     };
 
-    tabs.forEach(btn => {
-        btn.addEventListener('click', () => {
-            tabs.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
+    // ================================================================
+    // RENDER FUNCTIONS
+    // ================================================================
 
-            const target = btn.dataset.tab;
-            Object.keys(panels).forEach(key => {
-                panels[key].classList.toggle('active', key === target);
+    function renderBoard() {
+        const grid = document.getElementById('boardGrid');
+        const order = getBoardOrder();
+        grid.innerHTML = '';
+        order.forEach(idx => {
+            const cell = cellsData[idx];
+            const div = document.createElement('div');
+            div.className = `cell ${cell.cls}`;
+            if (cell.id === state.currentCell) div.classList.add('current');
+            div.innerHTML = `<span class="icon">${cell.icon}</span><span class="num">${cell.id}</span>`;
+            div.title = `${cell.id}. ${cell.label}`;
+            div.dataset.id = cell.id;
+            div.addEventListener('click', () => {
+                if (cell.id !== state.currentCell) {
+                    state.currentCell = cell.id;
+                    renderBoard();
+                    updateStats();
+                    showToast(`📍 Pindah ke kotak ${cell.id} — ${cell.label}`);
+                }
             });
+            grid.appendChild(div);
+        });
+        document.getElementById('currentPositionDisplay').textContent = `📍 Kamu di kotak ${state.currentCell}`;
+        document.getElementById('commitmentDisplay').textContent = `🎯 Komitmen: ${state.commitment}`;
+    }
+
+    function updateStats() {
+        document.getElementById('weeklyCompliance').textContent = state.weeklyCompliance;
+        document.getElementById('totalCommitment').textContent = state.totalCommitment;
+        document.getElementById('knowledgeScore').textContent = state.knowledgeScore + '%';
+        document.getElementById('userRank').textContent = state.userRank;
+    }
+
+    function renderActivities() {
+        const container = document.getElementById('activityList');
+        container.innerHTML = state.activities.map(a => `
+            <div class="activity-item">
+                <div class="activity-avatar">${a.name[0]}</div>
+                <div class="activity-content">
+                    <div class="name">${a.name}</div>
+                    <div class="desc">${a.action}</div>
+                </div>
+                <div class="activity-time">${a.time}</div>
+            </div>
+        `).join('');
+    }
+
+    function renderLeaderboard() {
+        const container = document.getElementById('leaderboardList');
+        container.innerHTML = state.leaderboard.map((item, i) => `
+            <div class="lb-item">
+                <span class="rank">#${i+1}</span>
+                ${item.name} ${item.name === 'Kamu' ? '⭐' : ''}
+                <span style="font-weight:700;">${item.score}</span>
+            </div>
+        `).join('');
+    }
+
+    function renderStudents() {
+        const tbody = document.getElementById('studentTableBody');
+        tbody.innerHTML = state.students.map(s => `
+            <tr>
+                <td><strong>${s.name}</strong></td>
+                <td>${s.kelas}</td>
+                <td>
+                    <div class="pbar"><div class="pfill" style="width:${s.compliance}%"></div></div>
+                    ${s.compliance}%
+                </td>
+                <td><span class="${s.status === 'Patuh' ? 'badge-patuh' : 'badge-tidak'}">${s.status}</span></td>
+                <td>${'✅'.repeat(Math.min(s.commitment, 5))}${'❌'.repeat(Math.max(0, 5 - s.commitment))}</td>
+            </tr>
+        `).join('');
+    }
+
+    // ================================================================
+    // ACTIONS
+    // ================================================================
+
+    function addActivity(name, action) {
+        state.activities.unshift({ name, action, time: 'baru saja' });
+        if (state.activities.length > 10) state.activities.pop();
+        renderActivities();
+    }
+
+    function showToast(msg) {
+        const toast = document.getElementById('toast');
+        toast.textContent = msg;
+        toast.classList.add('show');
+        clearTimeout(toast._timer);
+        toast._timer = setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    // ================================================================
+    // EVENT LISTENERS
+    // ================================================================
+
+    // Tab switching
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+            document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
         });
     });
+
+    // Catat minum TTD
+    document.getElementById('btnMinum').addEventListener('click', () => {
+        state.weeklyCompliance = '1/1';
+        state.totalCommitment += 1;
+        state.knowledgeScore = Math.min(100, state.knowledgeScore + 2);
+        updateStats();
+        addActivity('Kamu', '✅ mencatat minum TTD hari ini');
+        showToast('✅ Berhasil mencatat! Kepatuhan minggu ini: 1/1');
+        // update leaderboard
+        const me = state.leaderboard.find(l => l.name === 'Kamu');
+        if (me) {
+            const newScore = Math.min(100, parseInt(me.score) + 1);
+            me.score = newScore + '%';
+            state.leaderboard.sort((a,b) => parseInt(b.score) - parseInt(a.score));
+            const rank = state.leaderboard.findIndex(l => l.name === 'Kamu') + 1;
+            state.userRank = '#' + rank;
+            renderLeaderboard();
+            updateStats();
+        }
+    });
+
+    // Kuis harian
+    document.getElementById('btnKuis').addEventListener('click', () => {
+        state.knowledgeScore = Math.min(100, state.knowledgeScore + 5);
+        updateStats();
+        addActivity('Kamu', '🧠 menjawab kuis harian dengan benar (+5%)');
+        showToast('📖 Selamat! Skor pengetahuan +5%');
+    });
+
+    // Ambil kartu komitmen
+    document.getElementById('btnKomitmen').addEventListener('click', () => {
+        const commitments = [
+            '"Aku akan minum TTD setiap Minggu pagi"',
+            '"Aku akan mengingatkan teman untuk minum TTD"',
+            '"Aku akan membawa TTD saat bepergian"',
+            '"Aku akan minum TTD dengan air putih"'
+        ];
+        const newCommit = commitments[Math.floor(Math.random() * commitments.length)];
+        state.commitment = newCommit;
+        state.totalCommitment += 1;
+        updateStats();
+        document.getElementById('commitmentDisplay').textContent = `🎯 Komitmen: ${state.commitment}`;
+        addActivity('Kamu', `📄 mengambil Kartu Komitmen baru: ${newCommit}`);
+        showToast(`📄 Komitmen baru: ${newCommit}`);
+    });
+
+    // Reminder
+    document.getElementById('btnReminder').addEventListener('click', () => {
+        showToast('🔔 Pengingat disetel! Notifikasi akan muncul setiap Minggu pagi.');
+    });
+
+    // Export
+    document.getElementById('btnExport').addEventListener('click', () => {
+        let csv = 'Nama,Kelas,Kepatuhan(%),Status,Komitmen\n';
+        state.students.forEach(s => {
+            csv += `${s.name},${s.kelas},${s.compliance},${s.status},${s.commitment}\n`;
+        });
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'data_kepatuhan_ttd.csv';
+        a.click();
+        URL.revokeObjectURL(url);
+        showToast('📥 Data berhasil diekspor!');
+    });
+
+    // Refresh data admin
+    document.getElementById('btnRefresh').addEventListener('click', () => {
+        const avg = state.students.reduce((sum, s) => sum + s.compliance, 0) / state.students.length;
+        document.getElementById('avgCompliance').textContent = Math.round(avg) + '%';
+        document.getElementById('compliantCount').textContent = state.students.filter(s => s.status === 'Patuh').length;
+        renderStudents();
+        showToast('🔄 Data diperbarui!');
+    });
+
+    // ================================================================
+    // INIT
+    // ================================================================
+
+    renderBoard();
+    updateStats();
+    renderActivities();
+    renderLeaderboard();
+    renderStudents();
+
+    // Initial toast
+    setTimeout(() => showToast('👋 Selamat datang! Mulai catat kepatuhan TTD-mu.'), 500);
+
 </script>
 
 </body>
